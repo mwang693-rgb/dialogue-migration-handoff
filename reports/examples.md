@@ -1,18 +1,16 @@
-# 三个可以直接读的例子
+# Examples
 
-这些是看过结果后为说明评分选的例子，不是独立测试或总体比例。完整小批次均在experiments中。
+These examples were picked after inspection to make the scoring easier to follow. Complete selected batches are in `experiments/`.
 
-## 编辑：粘贴也可能比原生正确
+## An edit where pasting helped
 
-案例：artifact-book-0 / reorder_pages
-
-当前请求：
+`artifact-book-0 / reorder_pages`
 
 In our latest book, reverse the order of only the first three pages. Keep all eight page strings exactly unchanged. Return the complete JSON book.
 
-指标依据是实际冻结成果加本次修改要求；下面保持原文。
+The expected answer was built from the saved artifact and this edit request. Replies below are unchanged.
 
-### N：完整修改失败
+### B: role replay: fail
 
 ~~~~text
 ```json
@@ -31,7 +29,7 @@ In our latest book, reverse the order of only the first three pages. Keep all ei
 ```
 ~~~~
 
-### P：完整修改通过
+### C: pasted: pass
 
 ~~~~text
 ```json
@@ -50,7 +48,7 @@ In our latest book, reverse the order of only the first three pages. Keep all ei
 ```
 ~~~~
 
-### Hint：完整修改通过
+### C + continuation hint: pass
 
 ~~~~text
 ```json
@@ -69,7 +67,7 @@ In our latest book, reverse the order of only the first three pages. Keep all ei
 ```
 ~~~~
 
-### D：完整修改通过
+### C + history-difference vector: pass
 
 ~~~~text
 ```json
@@ -88,13 +86,13 @@ In our latest book, reverse the order of only the first three pages. Keep all ei
 ```
 ~~~~
 
-## 策略：双版本变成单版本
+## Two responses became one
 
-历史约定：All your responses in the upcoming conversation must have two different responses. Your two different responses should be separated by 6 asterisk symbols: ******. Keep all your responses under 200 words.
+History rule: All your responses in the upcoming conversation must have two different responses. Your two different responses should be separated by 6 asterisk symbols: ******. Keep all your responses under 200 words.
 
-当前请求：How do vaccines work and why are they important?
+Follow-up: How do vaccines work and why are they important?
 
-前三个实际任务回复都通过类别checker；这条最终请求的具体例子如下。
+All three practice replies passed the category checker.
 
 ### AOnline
 
@@ -136,15 +134,15 @@ Vaccines work by introducing a weakened or inactivated form of a virus or bacter
 Vaccines work by priming the immune system to recognize and fight specific pathogens. They are important because they not only protect the individual but also contribute to herd immunity, reducing the overall spread of diseases in a community.
 ~~~~
 
-后续同两历史的新请求B/C都9/10，所以这个单点不能写成稳定大批现象。
+The later questions from these same histories gave B/C 9/10 each. This one example does not establish a general loss.
 
-## 风格：新四历史方向不一致
+## The four new style histories
 
-|新历史|完整文本C−B缩略语密度|
+|History|C−B contraction density|
 |---|---:|
 |confirm-00-casual|-0.30177|
 |confirm-01-casual|+0.00000|
 |confirm-02-casual|+0.09724|
 |confirm-03-casual|+1.84346|
 
-新批平均仍为正，但只有两条为正。必须同时看分历史结果和实际命中总量，不能只看平均值。
+The average remains positive, but only two histories are positive. The per-history results and raw occurrence counts tell a different story from the mean alone.
