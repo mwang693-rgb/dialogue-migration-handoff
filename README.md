@@ -34,6 +34,8 @@ python scripts/verify_release.py
 
 第一条核对原有checker结果，重算表格并生成`reports/summary.json`与中文报告。它复算文本、缩略语和已存逐位置KL/JS的均值；**没有仅凭摘要重建完整词表概率**。结果文本和token未经改写，重复调用不会启动GPU。
 
+代码AST的冻结记录来自较新Python，交接重算对3.11/3.12只兼容新增的空`type_params=[]`字段；不忽略非空类型参数或正文字符串，不改变原有案例的通过/失败。首个Linux CI发现的版本不兼容及修复提交保留在仓库历史中。
+
 ## 可选：在新目录重跑三组
 
 ```bash

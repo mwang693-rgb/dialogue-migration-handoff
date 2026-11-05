@@ -31,12 +31,26 @@ def unwrap(text):
     return s
 
 
+def portable_ast_signature(dump):
+    """Compare frozen dumps across Python 3.11/3.12 without evaluating them.
+
+    Python 3.12 added empty type_params to FunctionDef/ClassDef. Remove only
+    that empty schema field in the parsed dump expression, never string values
+    or a nonempty type-parameter declaration. No generated code is executed.
+    """
+    expression = ast.parse(dump, mode='eval')
+    for node in ast.walk(expression):
+        if isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id in {'FunctionDef', 'AsyncFunctionDef', 'ClassDef'}:
+            node.keywords = [k for k in node.keywords if not (k.arg == 'type_params' and isinstance(k.value, ast.List) and not k.value.elts)]
+    return ast.dump(expression, include_attributes=False)
+
+
 def check_edit(text, family, q):
     """Match original joint/retention definitions, without executing model code."""
     try:
         if family == 'code':
             tree = ast.parse(unwrap(text))
-            strict = ast.dump(tree, include_attributes=False) == q['expected_ast']
+            strict = portable_ast_signature(ast.dump(tree, include_attributes=False)) == portable_ast_signature(q['expected_ast'])
             passed = strict
             if q['query_id'] == 'set_docstring':
                 expected = ast.parse(q['expected_code'])

@@ -4,10 +4,19 @@ from pathlib import Path
 import sys
 import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from handoff import analyze_all, check_edit, features, rows, check_strategy
+from handoff import analyze_all, check_edit, features, rows, check_strategy, portable_ast_signature
 
 
 class MetricPitfalls(unittest.TestCase):
+    def test_ast_version_compatibility_is_empty_field_only(self):
+        old = "FunctionDef(name='f', body=[Constant(value=', type_params=[]')])"
+        new = "FunctionDef(name='f', body=[Constant(value=', type_params=[]')], type_params=[])"
+        generic = "FunctionDef(name='f', body=[Constant(value=', type_params=[]')], type_params=[Name(id='T')])"
+        changed_string = "FunctionDef(name='f', body=[Constant(value='')], type_params=[])"
+        self.assertEqual(portable_ast_signature(old), portable_ast_signature(new))
+        self.assertNotEqual(portable_ast_signature(old), portable_ast_signature(generic))
+        self.assertNotEqual(portable_ast_signature(old), portable_ast_signature(changed_string))
+
     def test_whitespace_is_not_an_edit_failure(self):
         h = rows('experiments/01_editing/histories.jsonl')[0]
         q = h['queries'][0]
