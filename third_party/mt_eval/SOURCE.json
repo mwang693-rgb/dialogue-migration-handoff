@@ -1,0 +1,7 @@
+{
+  "repository": "https://github.com/KwanWaiChung/MT-Eval",
+  "license_url": "https://github.com/KwanWaiChung/MT-Eval/blob/main/LICENSE",
+  "license_api_blob_sha": "aa07e0f4351727caa7a08dddc207526c893082a6",
+  "source_checker_sha256": "d41c17b1ec06d110834a07c89d7471454f2aabc4fee0a30c009f0bb12ae01b49",
+  "note": "Selected public user prompts/rules are adapted; reference assistant replies are not used as main history. No official MT-Eval aggregate score is claimed."
+}

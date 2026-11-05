@@ -1,0 +1,28 @@
+{
+  "stage": "mteval_tworesponse_extension_v2",
+  "methods": [
+    "BReplay",
+    "CPasted",
+    "BSplitNull",
+    "CSpecificRule"
+  ],
+  "max_new_free_outputs": 40,
+  "cap": 1536,
+  "all_development": true,
+  "selection": "Both previously frozen two-response histories, ALL remaining source questions6..10, fixed after initial gap; no new history and no online-cache claim. Related queries not independent samples.",
+  "previous_failed_free_attempts": 1,
+  "previous_failure": "v1 first completed decode not saved because wildcard import shadowed scorer; original config/code/log/status preserved; raw output unavailable",
+  "purpose": "Does two-version response loss extend across current tasks after three actual practice replies? No steering or parameter search.",
+  "source_sha256": {
+    "results/mteval_continuity_v1/histories.jsonl": "74bfe491b4b8acaba127c13d14e656289c75479ad2e2b7d702412f9bf3cd2ed6",
+    "results/mteval_continuity_v1/analysis.json": "4748c338b77159fbd424f5ea67096975addf72b700cd9ae16fc0ef6d200a08e6",
+    "results/mteval_continuity_v1/outputs.jsonl": "83aba1e911dbf96870e737ace0c803d25b7cae250ec6a5f9b29d0d9f1bcc7fd2",
+    "data/continuity_dataset_review_2026_10_14/mteval_global_multiturn.jsonl": "a036562eb7a19d4a24acc4a93d1094153d5bd0273cd94419606971ae835fbe0e"
+  },
+  "code_sha256": {
+    "run_mteval_tworesponse_extension_v2.py": "df6b471fe2a1dca22b2373870ba0bab6e24be8f4db798b70d922a6d89403324f",
+    "run_mteval_continuity_v1.py": "a391c082eee9be62c14481d9ab466f53c58cd439bdd9b3e2f5bd471c513ba634",
+    "run_policy_threeway_v1.py": "2f94aadbc286aaf207f5efd07b1f450b5e519550ebffa681c14069cf12753382",
+    "migration_exploration_core_v1.py": "31da0916506fa54cc3b78f0eab7f7f96803fa3358e5653d6410bd93c3dd412cd"
+  }
+}

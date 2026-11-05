@@ -1,0 +1,38 @@
+{
+  "model": "Qwen2.5-7B-Instruct",
+  "dtype": "bfloat16",
+  "repetition_penalty": 1.0,
+  "seed": 453,
+  "layer_one_based": 16,
+  "selected_histories": [
+    "artifact-book-0",
+    "artifact-code-0",
+    "artifact-table-0"
+  ],
+  "reference_cap": 384,
+  "reference_paths": [
+    "N",
+    "P"
+  ],
+  "methods": [
+    "N",
+    "P",
+    "Hint",
+    "D",
+    "ReverseD"
+  ],
+  "expected_rows": 60,
+  "purpose": "metric coverage/numerical audit on previously explored tasks, not method selection or test",
+  "log_softmax_precision": "float64 from BF16 model logits",
+  "no_new_free_method_outputs": true,
+  "code_sha256": {
+    "audit_dense_reference.py": "eb3da39a6c00f4f97c3081cc946d4ff25bd29dbd4010df95b2dffc41a9fafb2c",
+    "run_pilot.py": "46c3531db75eced359ddce2f3fbd07897f8d1d9b1ba381420cb2629bc27ba0c1",
+    "pilot_data.py": "c9fe4c5dd5383bfffb83bdd78266a76c0199af76285e48fd1a69aa95d6d436b9"
+  },
+  "source_sha256": {
+    "results/steering_artifacts_v1/outputs.jsonl": "eb112c0b3a15c56160e6972a72da431c493896492149f325fded255f42746f4e",
+    "results/steering_artifacts_v1/vectors.pt": "a6b821e167d99b3de6181621e36bf8e6c2be731174d9cb85f4ad531fb42fdd69",
+    "results/artifact_protocol_v2/histories.jsonl": "901efe48626f9123e5609a6d165191b9cd20bb6ddd0dc6d58c281611e9070733"
+  }
+}

@@ -1,0 +1,5 @@
+# Optional new inference only. CPU report rebuilding has no dependencies.
+# These are compatibility ranges, not a lockfile for the old GPU environment.
+torch>=2.6
+transformers>=4.56,<5
+numpy>=1.26

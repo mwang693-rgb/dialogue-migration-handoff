@@ -1,0 +1,182 @@
+{
+  "groups": {
+    "full": {
+      "histories": 4,
+      "source_rows": [
+        {
+          "case_id": "confirm-00-casual",
+          "source_id": "13",
+          "mean_rates": {
+            "AOnline": 0.4291845493562232,
+            "BKeep": 0.9578544061302682,
+            "CKeep": 0.656084656084656,
+            "BRemove": 0.0,
+            "CRemove": 0.0
+          },
+          "c_minus_a": 0.22690010672843286,
+          "c_minus_b": -0.30176975004561213,
+          "remove_c_minus_b": 0.0,
+          "interaction": -0.30176975004561213
+        },
+        {
+          "case_id": "confirm-01-casual",
+          "source_id": "15",
+          "mean_rates": {
+            "AOnline": 0.16666666666666666,
+            "BKeep": 0.0,
+            "CKeep": 0.0,
+            "BRemove": 0.0,
+            "CRemove": 0.0
+          },
+          "c_minus_a": -0.16666666666666666,
+          "c_minus_b": 0.0,
+          "remove_c_minus_b": 0.0,
+          "interaction": 0.0
+        },
+        {
+          "case_id": "confirm-02-casual",
+          "source_id": "17",
+          "mean_rates": {
+            "AOnline": 0.18518518518518517,
+            "BKeep": 0.19011406844106463,
+            "CKeep": 0.28735632183908044,
+            "BRemove": 0.0,
+            "CRemove": 0.0
+          },
+          "c_minus_a": 0.10217113665389527,
+          "c_minus_b": 0.09724225339801582,
+          "remove_c_minus_b": 0.0,
+          "interaction": 0.09724225339801582
+        },
+        {
+          "case_id": "confirm-03-casual",
+          "source_id": "25",
+          "mean_rates": {
+            "AOnline": 0.78125,
+            "BKeep": 0.3546099290780142,
+            "CKeep": 2.1980676328502415,
+            "BRemove": 0.0,
+            "CRemove": 0.0
+          },
+          "c_minus_a": 1.4168176328502415,
+          "c_minus_b": 1.8434577037722273,
+          "remove_c_minus_b": 0.0,
+          "interaction": 1.8434577037722273
+        }
+      ],
+      "means": {
+        "c_minus_a": 0.39480555239147574,
+        "c_minus_b": 0.40973255178115775,
+        "remove_c_minus_b": 0.0,
+        "interaction": 0.40973255178115775
+      },
+      "positive_C_minus_A": 3,
+      "positive_C_minus_B": 2,
+      "total_counts": {
+        "AOnline": 6,
+        "BKeep": 7,
+        "CKeep": 6,
+        "BRemove": 0,
+        "CRemove": 0
+      }
+    },
+    "first120": {
+      "histories": 4,
+      "source_rows": [
+        {
+          "case_id": "confirm-00-casual",
+          "source_id": "13",
+          "mean_rates": {
+            "AOnline": 0.4098360655737705,
+            "BKeep": 0.8064516129032258,
+            "CKeep": 0.4065040650406504,
+            "BRemove": 0.0,
+            "CRemove": 0.0
+          },
+          "c_minus_a": -0.0033320005331201052,
+          "c_minus_b": -0.39994754786257536,
+          "remove_c_minus_b": 0.0,
+          "interaction": -0.39994754786257536
+        },
+        {
+          "case_id": "confirm-01-casual",
+          "source_id": "15",
+          "mean_rates": {
+            "AOnline": 0.0,
+            "BKeep": 0.0,
+            "CKeep": 0.0,
+            "BRemove": 0.0,
+            "CRemove": 0.0
+          },
+          "c_minus_a": 0.0,
+          "c_minus_b": 0.0,
+          "remove_c_minus_b": 0.0,
+          "interaction": 0.0
+        },
+        {
+          "case_id": "confirm-02-casual",
+          "source_id": "17",
+          "mean_rates": {
+            "AOnline": 0.0,
+            "BKeep": 0.0,
+            "CKeep": 0.4032258064516129,
+            "BRemove": 0.0,
+            "CRemove": 0.0
+          },
+          "c_minus_a": 0.4032258064516129,
+          "c_minus_b": 0.4032258064516129,
+          "remove_c_minus_b": 0.0,
+          "interaction": 0.4032258064516129
+        },
+        {
+          "case_id": "confirm-03-casual",
+          "source_id": "25",
+          "mean_rates": {
+            "AOnline": 0.8,
+            "BKeep": 0.4132231404958678,
+            "CKeep": 2.1980676328502415,
+            "BRemove": 0.0,
+            "CRemove": 0.0
+          },
+          "c_minus_a": 1.3980676328502415,
+          "c_minus_b": 1.7848444923543738,
+          "remove_c_minus_b": 0.0,
+          "interaction": 1.7848444923543738
+        }
+      ],
+      "means": {
+        "c_minus_a": 0.44949035969218354,
+        "c_minus_b": 0.44703068773585286,
+        "remove_c_minus_b": 0.0,
+        "interaction": 0.44703068773585286
+      },
+      "positive_C_minus_A": 2,
+      "positive_C_minus_B": 2,
+      "total_counts": {
+        "AOnline": 3,
+        "BKeep": 3,
+        "CKeep": 5,
+        "BRemove": 0,
+        "CRemove": 0
+      }
+    }
+  },
+  "history_feature_present": 4,
+  "valid_histories": 4,
+  "final_outputs": 52,
+  "natural": 52,
+  "cap": 0,
+  "override_zero_short_forms": {
+    "AOnline": 4,
+    "BKeep": 4,
+    "CKeep": 4
+  },
+  "gate_pass": false,
+  "gate_reasons": [
+    "full positive_C_minus_B below three-quarter source threshold",
+    "first120 positive_C_minus_B below three-quarter threshold",
+    "Fewer than four additional actual listed short forms in C vs B"
+  ],
+  "gate_is_heuristic_not_significance": true,
+  "source_groups_not_queries_are_units": true
+}

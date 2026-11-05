@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "mteval-23",
+    "source_id": "23",
+    "query_index": 6,
+    "query": "Was To Kill a Mockingbird Harper Lee’s debut novel?"
+  },
+  {
+    "case_id": "mteval-23",
+    "source_id": "23",
+    "query_index": 7,
+    "query": "Is quantum physics challenging the fundamental principles of classical physics?"
+  },
+  {
+    "case_id": "mteval-23",
+    "source_id": "23",
+    "query_index": 8,
+    "query": "Can dreams predict the future?"
+  },
+  {
+    "case_id": "mteval-23",
+    "source_id": "23",
+    "query_index": 9,
+    "query": "Does running a marathon cause knee problems in the future?"
+  },
+  {
+    "case_id": "mteval-23",
+    "source_id": "23",
+    "query_index": 10,
+    "query": "Craft an email that introduces an innovative online academic tool for students."
+  },
+  {
+    "case_id": "mteval-24",
+    "source_id": "24",
+    "query_index": 6,
+    "query": "Write a resume for a fresh high school graduate."
+  },
+  {
+    "case_id": "mteval-24",
+    "source_id": "24",
+    "query_index": 7,
+    "query": "Is classical music beneficial for enhancing brain function?"
+  },
+  {
+    "case_id": "mteval-24",
+    "source_id": "24",
+    "query_index": 8,
+    "query": "Does pineapple belong on pizza?"
+  },
+  {
+    "case_id": "mteval-24",
+    "source_id": "24",
+    "query_index": 9,
+    "query": "What is the role of a teacher in shaping a student's character?"
+  },
+  {
+    "case_id": "mteval-24",
+    "source_id": "24",
+    "query_index": 10,
+    "query": "Does homework improve academic performance?"
+  }
+]

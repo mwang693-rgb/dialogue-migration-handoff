@@ -1,0 +1,342 @@
+{
+  "stage": "style_confirmation_v2",
+  "selection": {
+    "stage": "style_confirmation_v2",
+    "selection": "First four unique public streams with no question substring in any existing results/*/histories.jsonl text and no within-batch question overlap; no outcome selection.",
+    "public_source_sha256": "a036562eb7a19d4a24acc4a93d1094153d5bd0273cd94419606971ae835fbe0e",
+    "prior_histories": [
+      {
+        "path": "results/active_task_dev_v1/histories.jsonl",
+        "sha256": "94a926cd9b48372af50b6f1ff59302c41830d6b085358b7f92b8a52c30fd85da"
+      },
+      {
+        "path": "results/active_task_dev_v2/histories.jsonl",
+        "sha256": "0bb38220bcab7a10aa864032400b1bee6c8f4d9260f932e333c407f01c33ca66"
+      },
+      {
+        "path": "results/approved_plan_dev_v1/histories.jsonl",
+        "sha256": "283dc32de9ac00acb84ca341d0e42d56e56d0b2b1a4a6712e10f8a3192b642ea"
+      },
+      {
+        "path": "results/approved_plan_open_dev_v1/histories.jsonl",
+        "sha256": "283dc32de9ac00acb84ca341d0e42d56e56d0b2b1a4a6712e10f8a3192b642ea"
+      },
+      {
+        "path": "results/artifact_expansion_v1/histories.jsonl",
+        "sha256": "55ad902b475377f54590e46077a7712237f096641c88570dd226c94c84b0f3bf"
+      },
+      {
+        "path": "results/artifact_protocol_v2/histories.jsonl",
+        "sha256": "901efe48626f9123e5609a6d165191b9cd20bb6ddd0dc6d58c281611e9070733"
+      },
+      {
+        "path": "results/cache_boundary_dev_v1/histories.jsonl",
+        "sha256": "c839539b5735a8cecb2e7851586111148e60a002650418d91979379d93d49c28"
+      },
+      {
+        "path": "results/cache_boundary_dev_v2/histories.jsonl",
+        "sha256": "515b51523858f1820eda2fd99afc0c3a5ee4c2ee87a32cfd14511208668d6a15"
+      },
+      {
+        "path": "results/cache_scope_dev_v3/histories.jsonl",
+        "sha256": "515b51523858f1820eda2fd99afc0c3a5ee4c2ee87a32cfd14511208668d6a15"
+      },
+      {
+        "path": "results/data_construction_checks_v1/histories.jsonl",
+        "sha256": "ec12032710f57303b09350cb93836240813deb91d4c4d770d2bb538ff51914a9"
+      },
+      {
+        "path": "results/dataset_expansion_v1/histories.jsonl",
+        "sha256": "5e7147adeb7ce2798614099a5f50deb26c5a589e4dbaefb3df051856bdc1edb4"
+      },
+      {
+        "path": "results/dataset_study_v1/histories.jsonl",
+        "sha256": "be4ba340692d581724c6be440e62f17f41e4fed190c868a2342de2df2e746b46"
+      },
+      {
+        "path": "results/executable_result_dev_v1/histories.jsonl",
+        "sha256": "be726e8f10aaece2ccd549d6bef0a9db48e351ea00948ddf76f1ab59bf197831"
+      },
+      {
+        "path": "results/execution_path_dev_v1/histories.jsonl",
+        "sha256": "be726e8f10aaece2ccd549d6bef0a9db48e351ea00948ddf76f1ab59bf197831"
+      },
+      {
+        "path": "results/existing_continuity_v2/histories.jsonl",
+        "sha256": "4cd1d9e5035115a67477435a1de517f46f8289df8318281a81f5689cc9b1a463"
+      },
+      {
+        "path": "results/existing_continuity_v3/histories.jsonl",
+        "sha256": "e5962dd2d0efc1cb9b1924e29b779fcf60ff3a258818a091fe02c39505cb0ba9"
+      },
+      {
+        "path": "results/expired_families_v1/histories.jsonl",
+        "sha256": "be726e8f10aaece2ccd549d6bef0a9db48e351ea00948ddf76f1ab59bf197831"
+      },
+      {
+        "path": "results/expired_random_v1/histories.jsonl",
+        "sha256": "9788193a67faba5a2e0ccff645eb03e1253c49bb87bad6300d30cbb510d63da5"
+      },
+      {
+        "path": "results/expired_scope_v1/histories.jsonl",
+        "sha256": "9788193a67faba5a2e0ccff645eb03e1253c49bb87bad6300d30cbb510d63da5"
+      },
+      {
+        "path": "results/expiry_timescope_v1/histories.jsonl",
+        "sha256": "9788193a67faba5a2e0ccff645eb03e1253c49bb87bad6300d30cbb510d63da5"
+      },
+      {
+        "path": "results/frame_strength_dev_v1/histories.jsonl",
+        "sha256": "283dc32de9ac00acb84ca341d0e42d56e56d0b2b1a4a6712e10f8a3192b642ea"
+      },
+      {
+        "path": "results/frozen_operation_steering_v1/histories.jsonl",
+        "sha256": "9788193a67faba5a2e0ccff645eb03e1253c49bb87bad6300d30cbb510d63da5"
+      },
+      {
+        "path": "results/frozen_operation_v1/histories.jsonl",
+        "sha256": "9788193a67faba5a2e0ccff645eb03e1253c49bb87bad6300d30cbb510d63da5"
+      },
+      {
+        "path": "results/frozen_transfer_v1/histories.jsonl",
+        "sha256": "e616ba8d5a68fed35b59bd7d20c4352a4e8815b6136edfb044a4dc3d83be3d35"
+      },
+      {
+        "path": "results/frozen_update_stress_v1/histories.jsonl",
+        "sha256": "0b4cc4529158424d400739bf87c3523cf69fecd98c0a9107fdf40b8d46caea69"
+      },
+      {
+        "path": "results/gpu_execution_dev_v1/histories.jsonl",
+        "sha256": "283dc32de9ac00acb84ca341d0e42d56e56d0b2b1a4a6712e10f8a3192b642ea"
+      },
+      {
+        "path": "results/history_compile_dev_v4/histories.jsonl",
+        "sha256": "515b51523858f1820eda2fd99afc0c3a5ee4c2ee87a32cfd14511208668d6a15"
+      },
+      {
+        "path": "results/history_position_dev_v1/histories.jsonl",
+        "sha256": "515b51523858f1820eda2fd99afc0c3a5ee4c2ee87a32cfd14511208668d6a15"
+      },
+      {
+        "path": "results/hybrid_rule_v1/histories.jsonl",
+        "sha256": "a6cb627f05d12a9c0c15c8150f7db42ad801b91d7e5869f65eda41b3d85fc1d0"
+      },
+      {
+        "path": "results/icv_code_request_dev_v1/histories.jsonl",
+        "sha256": "be726e8f10aaece2ccd549d6bef0a9db48e351ea00948ddf76f1ab59bf197831"
+      },
+      {
+        "path": "results/icv_random_dev_v1/histories.jsonl",
+        "sha256": "be726e8f10aaece2ccd549d6bef0a9db48e351ea00948ddf76f1ab59bf197831"
+      },
+      {
+        "path": "results/instruction_scope_dev_v1/histories.jsonl",
+        "sha256": "283dc32de9ac00acb84ca341d0e42d56e56d0b2b1a4a6712e10f8a3192b642ea"
+      },
+      {
+        "path": "results/joint_position_dev_v1/histories.jsonl",
+        "sha256": "283dc32de9ac00acb84ca341d0e42d56e56d0b2b1a4a6712e10f8a3192b642ea"
+      },
+      {
+        "path": "results/joint_prefill_dev_v1/histories.jsonl",
+        "sha256": "515b51523858f1820eda2fd99afc0c3a5ee4c2ee87a32cfd14511208668d6a15"
+      },
+      {
+        "path": "results/layerwise_request_dev_v1/histories.jsonl",
+        "sha256": "be726e8f10aaece2ccd549d6bef0a9db48e351ea00948ddf76f1ab59bf197831"
+      },
+      {
+        "path": "results/lowrank_history_dev_v1/histories.jsonl",
+        "sha256": "515b51523858f1820eda2fd99afc0c3a5ee4c2ee87a32cfd14511208668d6a15"
+      },
+      {
+        "path": "results/mteval_continuity_v1/histories.jsonl",
+        "sha256": "74bfe491b4b8acaba127c13d14e656289c75479ad2e2b7d702412f9bf3cd2ed6"
+      },
+      {
+        "path": "results/mti_dynamic_discovery_v1/histories.jsonl",
+        "sha256": "c77fd7f22c0f22e3bd6fbd01a75e4d7bbaeb3476c3c7b2b460cd0916a629ec0f"
+      },
+      {
+        "path": "results/numerical_floor_dev_v1/histories.jsonl",
+        "sha256": "515b51523858f1820eda2fd99afc0c3a5ee4c2ee87a32cfd14511208668d6a15"
+      },
+      {
+        "path": "results/open_text_fidelity_v1/histories.jsonl",
+        "sha256": "515b51523858f1820eda2fd99afc0c3a5ee4c2ee87a32cfd14511208668d6a15"
+      },
+      {
+        "path": "results/phase_correspondence_dev_v1/histories.jsonl",
+        "sha256": "283dc32de9ac00acb84ca341d0e42d56e56d0b2b1a4a6712e10f8a3192b642ea"
+      },
+      {
+        "path": "results/phase_null_dev_v1/histories.jsonl",
+        "sha256": "283dc32de9ac00acb84ca341d0e42d56e56d0b2b1a4a6712e10f8a3192b642ea"
+      },
+      {
+        "path": "results/plan_practice_v1/histories.jsonl",
+        "sha256": "25642ba6b2cdc08b7adcbcb8b4a8a39d472f7f222c934f011f4a62e4e2e08995"
+      },
+      {
+        "path": "results/policy_practice_v2/histories.jsonl",
+        "sha256": "1bbc445c922699b38250be583a939dd4fd854f8c71b9b1db4ad45a8c39a08cdc"
+      },
+      {
+        "path": "results/policy_threeway_v1/histories.jsonl",
+        "sha256": "63fa61c94d98feebaad8abd1bea36ee4c065ac1b1cbe19460c5cf8b56314987b"
+      },
+      {
+        "path": "results/qa_rewrite_discovery_v1/histories.jsonl",
+        "sha256": "da041890131e19512323a204927f0f8db8beffc86f0524d7672b3d862dd549c7"
+      },
+      {
+        "path": "results/replay_split_v1/histories.jsonl",
+        "sha256": "9788193a67faba5a2e0ccff645eb03e1253c49bb87bad6300d30cbb510d63da5"
+      },
+      {
+        "path": "results/request_delta_dev_v1/histories.jsonl",
+        "sha256": "be726e8f10aaece2ccd549d6bef0a9db48e351ea00948ddf76f1ab59bf197831"
+      },
+      {
+        "path": "results/response_frame_dev_v1/histories.jsonl",
+        "sha256": "283dc32de9ac00acb84ca341d0e42d56e56d0b2b1a4a6712e10f8a3192b642ea"
+      },
+      {
+        "path": "results/response_frame_kv_dev_v1/histories.jsonl",
+        "sha256": "283dc32de9ac00acb84ca341d0e42d56e56d0b2b1a4a6712e10f8a3192b642ea"
+      },
+      {
+        "path": "results/retention_discovery_v1/histories.jsonl",
+        "sha256": "8894fb42208108a2f0460c7b8eafc3fcf23d641d0f396bd38c2d854996948d07"
+      },
+      {
+        "path": "results/rule_replay_dev_v1/histories.jsonl",
+        "sha256": "be726e8f10aaece2ccd549d6bef0a9db48e351ea00948ddf76f1ab59bf197831"
+      },
+      {
+        "path": "results/rule_scope_dev_v1/histories.jsonl",
+        "sha256": "be726e8f10aaece2ccd549d6bef0a9db48e351ea00948ddf76f1ab59bf197831"
+      },
+      {
+        "path": "results/rule_semantic_v1/histories.jsonl",
+        "sha256": "9788193a67faba5a2e0ccff645eb03e1253c49bb87bad6300d30cbb510d63da5"
+      },
+      {
+        "path": "results/rule_transfer_v1/histories.jsonl",
+        "sha256": "9788193a67faba5a2e0ccff645eb03e1253c49bb87bad6300d30cbb510d63da5"
+      },
+      {
+        "path": "results/smoke_v1/histories.jsonl",
+        "sha256": "5896c0681544fea10f3d5b816849944ee3551ccccabdf6d4fc04ae30e8a674d1"
+      },
+      {
+        "path": "results/smoke_v2/histories.jsonl",
+        "sha256": "0e43822b143bbe0561b945cb8a79abc350ad307483c4b3075ebb95d17ba5528b"
+      },
+      {
+        "path": "results/structured_qa_discovery_v1/histories.jsonl",
+        "sha256": "06541db53915094643929b11c261411cc9af0cda701deae9e9af8f7936c8eb1f"
+      },
+      {
+        "path": "results/style_migration_v1/histories.jsonl",
+        "sha256": "20cd0d7c298584206f67fdd4167a112ab8e26b0329cc2087be0664412d0795f2"
+      },
+      {
+        "path": "results/wait_boundary_v1/histories.jsonl",
+        "sha256": "9788193a67faba5a2e0ccff645eb03e1253c49bb87bad6300d30cbb510d63da5"
+      }
+    ],
+    "source_groups": 4,
+    "new_histories": 4,
+    "history_turns": 3,
+    "history_cap": 1536,
+    "output_cap": 1536,
+    "normal_methods": [
+      "AOnline",
+      "BKeep",
+      "CKeep",
+      "BRemove",
+      "CRemove"
+    ],
+    "override_methods": [
+      "AOnline",
+      "BKeep",
+      "CKeep"
+    ],
+    "confirmation_max_free_outputs": 64,
+    "contraction_metric": "Fixed unambiguous short forms from previous round. Per-response count per100 regex words, full text and Markdown-stripped first120 whitespace words. Mean two normal queries within source history, then equal source-history mean. Zero ties do not count as positive.",
+    "gate": {
+      "min_valid_histories": 4,
+      "min_positive_source_fraction": 0.75,
+      "require_positive_C_minus_A_and_B_mean": true,
+      "require_positive_C_minus_A_and_B_first120_mean": true,
+      "require_first120_positive_C_minus_B_source_fraction": 0.75,
+      "require_full_C_minus_B_total_short_forms_at_least": 4,
+      "require_positive_keep_minus_remove_interaction": true,
+      "require_no_truncated_or_role_stop_normal_outputs": true,
+      "interpretation": "Heuristic feasibility gate, not statistical significance, independent replication proof, or publishability. All valid histories tested, not just cases with format gaps."
+    },
+    "steering_if_gate": {
+      "layer": 16,
+      "rho": 0.05,
+      "extraction": "Single paired B/C history plus fixed neutral cue Continue the conversation.; no actual query or future answer used.",
+      "methods": [
+        "DHistory",
+        "DOutput",
+        "RandomOutput",
+        "ReverseOutput",
+        "RestateHint",
+        "SpellOutHint"
+      ],
+      "queries": [
+        "q0",
+        "override_q1"
+      ],
+      "max_new_free_outputs": 48,
+      "freeze_before_new_answers": true,
+      "primary": "Bidirectional controllability and closer-to-B contraction density, not assumed quality recovery. No layer/strength sweep; all valid confirmation histories included."
+    },
+    "total_max_free_outputs": 112,
+    "target_model": "Qwen2.5-7B-Instruct",
+    "target_model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+    "new_target_models": 0,
+    "training": false,
+    "metric_definition_frozen": true,
+    "code_sha256": "cb43444b5eaf486f79b25af83274483c21da7e1468da65bfbeb8465f8f9cdf89"
+  },
+  "cap": 1536,
+  "max_free_outputs": 64,
+  "extra_gate": "At least three of four committed histories have at least one listed short form; no per-case outcome filtering.",
+  "planned_steering": {
+    "layer": 16,
+    "rho": 0.05,
+    "methods": [
+      "DHistory",
+      "DOutput",
+      "RandomOutput",
+      "ReverseOutput",
+      "RestateHint",
+      "SpellOutHint"
+    ],
+    "queries": [
+      "q0",
+      "override_q1"
+    ],
+    "max_free_outputs": 48
+  },
+  "protocol_sha256": "30849074ae804f6c220caa9aaa19089015ebdb7b0fd1d22ea012cbe8419706e4",
+  "source_sha256": {
+    "data/style_confirmation_v2/cases.json": "d351ea16ce2c94def3158d2f8d4a322bc3d760043ebb0588b7b52ae97d8aa09b",
+    "data/style_confirmation_v2/selection.json": "9bc8d78fed2832a1e8a63fcd7340a006d94b820c4fc7dc925c0c6edc26319d89",
+    "data/style_confirmation_v2/selection_decisions.json": "81d0d797cd4aa0ae542480b25d427f9d28f5d784e46d0941af00e7f17373fc84"
+  },
+  "code_sha256": {
+    "run_style_confirmation_v2.py": "dbe8b788fcae97dd01296a5ad15f5d78fc427000d5f36fc191d7ea47d953c9f8",
+    "style_confirmation_common_v2.py": "c609b3c5aa687f08779ff3b62bce592359ed3f2974ccda9dec7f4fc0cab54bc9",
+    "style_cue_verification_common_v1.py": "7b1a050f7cd27aa1481749c2647a7772936f8f3495fbc1f79cda1c5e36539bb7",
+    "migration_exploration_core_v1.py": "31da0916506fa54cc3b78f0eab7f7f96803fa3358e5653d6410bd93c3dd412cd",
+    "run_policy_threeway_v1.py": "2f94aadbc286aaf207f5efd07b1f450b5e519550ebffa681c14069cf12753382",
+    "run_policy_practice_v2.py": "672b3d1a395d0d707555702c7c4554268b87e942da6b74d685e59988e8a44e72",
+    "run_existing_continuity_v3.py": "436d85c2a0249549f7b8788b3f0f8568e681f193bc3442ddaf84bf48885fcaa9"
+  }
+}

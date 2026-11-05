@@ -1,0 +1,33 @@
+{
+  "stage": "mteval_continuity_v1",
+  "cases": 8,
+  "history_turns": 4,
+  "actual_practice_turns": 3,
+  "queries": 2,
+  "methods": [
+    "AOnline",
+    "BReplay",
+    "CPasted",
+    "BSplitNull",
+    "CSpecificRule"
+  ],
+  "history_cap": 1536,
+  "output_cap": 1536,
+  "max_new_free_outputs": 112,
+  "all_development": true,
+  "source_adaptation": "Original initial user and questions 1..3 form generated history, questions 4 and 5 tested independently. Initial do_inference=false acknowledgement regenerated; original reference assistants never fed. Fixed four categories, both source versions, no outcome screening.",
+  "history_established": "All THREE actual task replies pass source category checker and natural stop; acknowledgement reported separately.",
+  "score_limit": "Source category checker only; not full response utility/semantics, nor secondary under-200-word requirement. TwoResponses checks separated text, not semantic distinctness. Ending phrase is weak surface control.",
+  "source_sha256": {
+    "data/continuity_dataset_review_2026_10_14/mteval_continuity_selection_v1.json": "04aa8a15a2850c5662530b7bc3226c4236444e19106908bc6e092b8a8ea59e7d",
+    "data/continuity_dataset_review_2026_10_14/mteval_global_multiturn.jsonl": "a036562eb7a19d4a24acc4a93d1094153d5bd0273cd94419606971ae835fbe0e",
+    "data/continuity_dataset_review_2026_10_14/KwanWaiChung__MT-Eval__utils__global_inst.py": "d41c17b1ec06d110834a07c89d7471454f2aabc4fee0a30c009f0bb12ae01b49"
+  },
+  "code_sha256": {
+    "run_mteval_continuity_v1.py": "a391c082eee9be62c14481d9ab466f53c58cd439bdd9b3e2f5bd471c513ba634",
+    "run_policy_threeway_v1.py": "2f94aadbc286aaf207f5efd07b1f450b5e519550ebffa681c14069cf12753382",
+    "run_policy_practice_v2.py": "672b3d1a395d0d707555702c7c4554268b87e942da6b74d685e59988e8a44e72",
+    "run_existing_continuity_v3.py": "436d85c2a0249549f7b8788b3f0f8568e681f193bc3442ddaf84bf48885fcaa9",
+    "migration_exploration_core_v1.py": "31da0916506fa54cc3b78f0eab7f7f96803fa3358e5653d6410bd93c3dd412cd"
+  }
+}

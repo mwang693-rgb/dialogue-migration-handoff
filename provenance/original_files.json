@@ -1,0 +1,250 @@
+[
+  {
+    "original": "results/artifact_protocol_v2/histories.jsonl",
+    "destination": "experiments/01_editing/histories.jsonl",
+    "original_file_sha256": "901efe48626f9123e5609a6d165191b9cd20bb6ddd0dc6d58c281611e9070733",
+    "original_rows": 12,
+    "exported_rows": 12,
+    "projection": "Only top-level calls/trace/hook_scope omitted; text, IDs, original scores and inputs unchanged. Selection documented in selection.json."
+  },
+  {
+    "original": "results/steering_artifacts_v1/outputs.jsonl",
+    "destination": "experiments/01_editing/outputs.jsonl",
+    "original_file_sha256": "eb112c0b3a15c56160e6972a72da431c493896492149f325fded255f42746f4e",
+    "original_rows": 216,
+    "exported_rows": 144,
+    "projection": "Only top-level calls/trace/hook_scope omitted; text, IDs, original scores and inputs unchanged. Selection documented in selection.json."
+  },
+  {
+    "original": "results/dense_reference_audit_v1/distributions.jsonl",
+    "destination": "experiments/01_editing/dense_distributions.jsonl",
+    "original_file_sha256": "466a3c092a987ca068b704887a432fa644db2fc50537d881a044a40e4c93200b",
+    "original_rows": 60,
+    "exported_rows": 60,
+    "projection": "Only top-level calls/trace/hook_scope omitted; text, IDs, original scores and inputs unchanged. Selection documented in selection.json."
+  },
+  {
+    "original": "results/steering_artifacts_v1/config.json",
+    "destination": "experiments/01_editing/original_generation_config.json",
+    "original_file_sha256": "f94e532a377b1d492d2286de62493decd37124953745a2e3bac161f6e8d6704f",
+    "exact_copy": true
+  },
+  {
+    "original": "results/dense_reference_audit_v1/config.json",
+    "destination": "experiments/01_editing/original_dense_config.json",
+    "original_file_sha256": "287fc433d9177341a7efe5c03cbe10af0b2559195c14ae865453ea45893c4a32",
+    "exact_copy": true
+  },
+  {
+    "original": "results/mteval_continuity_v1/histories.jsonl",
+    "destination": "experiments/02_strategy/histories.jsonl",
+    "original_file_sha256": "74bfe491b4b8acaba127c13d14e656289c75479ad2e2b7d702412f9bf3cd2ed6",
+    "original_rows": 8,
+    "exported_rows": 8,
+    "projection": "Only top-level calls/trace/hook_scope omitted; text, IDs, original scores and inputs unchanged. Selection documented in selection.json."
+  },
+  {
+    "original": "results/mteval_continuity_v1/outputs.jsonl",
+    "destination": "experiments/02_strategy/outputs.jsonl",
+    "original_file_sha256": "83aba1e911dbf96870e737ace0c803d25b7cae250ec6a5f9b29d0d9f1bcc7fd2",
+    "original_rows": 80,
+    "exported_rows": 80,
+    "projection": "Only top-level calls/trace/hook_scope omitted; text, IDs, original scores and inputs unchanged. Selection documented in selection.json."
+  },
+  {
+    "original": "results/mteval_tworesponse_extension_v2/outputs.jsonl",
+    "destination": "experiments/02_strategy/extension_outputs.jsonl",
+    "original_file_sha256": "b9ea20cf9a52845fec23424524515c3f64a364896b83d69364540abff9da1747",
+    "original_rows": 40,
+    "exported_rows": 40,
+    "projection": "Only top-level calls/trace/hook_scope omitted; text, IDs, original scores and inputs unchanged. Selection documented in selection.json."
+  },
+  {
+    "original": "results/mteval_continuity_v1/config.json",
+    "destination": "experiments/02_strategy/original_config.json",
+    "original_file_sha256": "41e65e5bdfa819a34f6f60c94ca225df1c09e19466cba9a9af14b31d97e048bd",
+    "exact_copy": true
+  },
+  {
+    "original": "results/mteval_tworesponse_extension_v2/config.json",
+    "destination": "experiments/02_strategy/original_extension_config.json",
+    "original_file_sha256": "8d9b3cc7467f87caf3c80f9aea5d81afff59387cf9f6af955a25791783ca4f88",
+    "exact_copy": true
+  },
+  {
+    "original": "results/mteval_tworesponse_extension_v2/tasks.json",
+    "destination": "experiments/02_strategy/extension_tasks.json",
+    "original_file_sha256": "a0de7c37f0360a3873981db6028101b0f165673f893fbcf300c86b4debcfd01c",
+    "exact_copy": true
+  },
+  {
+    "original": "results/style_migration_v1/histories.jsonl",
+    "destination": "experiments/03_style/old_histories.jsonl",
+    "original_file_sha256": "20cd0d7c298584206f67fdd4167a112ab8e26b0329cc2087be0664412d0795f2",
+    "original_rows": 11,
+    "exported_rows": 6,
+    "projection": "Only top-level calls/trace/hook_scope omitted; text, IDs, original scores and inputs unchanged. Selection documented in selection.json."
+  },
+  {
+    "original": "results/style_cue_ablation_v1/outputs.jsonl",
+    "destination": "experiments/03_style/old_outputs.jsonl",
+    "original_file_sha256": "42efcaeafbf5abdaa6849723d8878439bb23d9df1ff6531360c834980243ceaa",
+    "original_rows": 88,
+    "exported_rows": 48,
+    "projection": "Only top-level calls/trace/hook_scope omitted; text, IDs, original scores and inputs unchanged. Selection documented in selection.json."
+  },
+  {
+    "original": "results/style_confirmation_v2/histories.jsonl",
+    "destination": "experiments/03_style/histories.jsonl",
+    "original_file_sha256": "68abb6d695c7dc5f1b24b0ba7f02b270562a8a4459d384caa3de23682858ee18",
+    "original_rows": 4,
+    "exported_rows": 4,
+    "projection": "Only top-level calls/trace/hook_scope omitted; text, IDs, original scores and inputs unchanged. Selection documented in selection.json."
+  },
+  {
+    "original": "results/style_confirmation_v2/outputs.jsonl",
+    "destination": "experiments/03_style/outputs.jsonl",
+    "original_file_sha256": "e310852761773bf4f24d5c72bf02e75b1394e89346d4b229c47bf256e2216b1a",
+    "original_rows": 52,
+    "exported_rows": 52,
+    "projection": "Only top-level calls/trace/hook_scope omitted; text, IDs, original scores and inputs unchanged. Selection documented in selection.json."
+  },
+  {
+    "original": "results/style_confirmation_v2/config.json",
+    "destination": "experiments/03_style/original_config.json",
+    "original_file_sha256": "aa1b38bba9a0daa3bca4b695ee7b3d83d1d12e991dff93f7a5f9f71585fdd740",
+    "exact_copy": true
+  },
+  {
+    "original": "results/style_confirmation_v2/audit.json",
+    "destination": "experiments/03_style/original_audit.json",
+    "original_file_sha256": "134af6d6b4cb280c6f3e71441cc380d3d874d2fd30e4af61e62a4b0384e01932",
+    "exact_copy": true
+  },
+  {
+    "original": "results/style_confirmation_v2/analysis.json",
+    "destination": "experiments/03_style/original_analysis.json",
+    "original_file_sha256": "bef57a78498c626911793184202209a42c6a6fc13bf94bae1377538a3c0ce4b7",
+    "exact_copy": true
+  },
+  {
+    "original": "results/style_cue_ablation_v1/config.json",
+    "destination": "experiments/03_style/original_old_config.json",
+    "original_file_sha256": "ef50c9d4a7f4d6d82e3b52e3d552cbc4a01176a9ec56a7ea63ca1b9270b5a5db",
+    "exact_copy": true
+  },
+  {
+    "original": "data/continuity_dataset_review_2026_10_14/KwanWaiChung__MT-Eval__utils__global_inst.py",
+    "destination": "third_party/mt_eval/global_inst.py",
+    "original_file_sha256": "d41c17b1ec06d110834a07c89d7471454f2aabc4fee0a30c009f0bb12ae01b49",
+    "exact_copy": true
+  },
+  {
+    "original": "scripts/run_plan_practice_v1.py",
+    "destination": "reference_code/run_plan_practice_v1.py",
+    "original_file_sha256": "c1b40f735963d952637205ae80c7fd3c1161e17b651af32706d710ced6d019ed",
+    "exact_copy": true
+  },
+  {
+    "original": "scripts/run_policy_practice_v2.py",
+    "destination": "reference_code/run_policy_practice_v2.py",
+    "original_file_sha256": "672b3d1a395d0d707555702c7c4554268b87e942da6b74d685e59988e8a44e72",
+    "exact_copy": true
+  },
+  {
+    "original": "scripts/run_policy_threeway_v1.py",
+    "destination": "reference_code/run_policy_threeway_v1.py",
+    "original_file_sha256": "2f94aadbc286aaf207f5efd07b1f450b5e519550ebffa681c14069cf12753382",
+    "exact_copy": true
+  },
+  {
+    "original": "scripts/migration_exploration_core_v1.py",
+    "destination": "reference_code/migration_exploration_core_v1.py",
+    "original_file_sha256": "31da0916506fa54cc3b78f0eab7f7f96803fa3358e5653d6410bd93c3dd412cd",
+    "exact_copy": true
+  },
+  {
+    "original": "scripts/explicit_state_checks_v1.py",
+    "destination": "reference_code/explicit_state_checks_v1.py",
+    "original_file_sha256": "952e828db84b7e7d1f286a6c306537d086c9283ef14f2dbb9114b8a983209cf5",
+    "exact_copy": true
+  },
+  {
+    "original": "scripts/style_cue_verification_common_v1.py",
+    "destination": "reference_code/style_cue_verification_common_v1.py",
+    "original_file_sha256": "7b1a050f7cd27aa1481749c2647a7772936f8f3495fbc1f79cda1c5e36539bb7",
+    "exact_copy": true
+  },
+  {
+    "original": "scripts/style_confirmation_common_v2.py",
+    "destination": "reference_code/style_confirmation_common_v2.py",
+    "original_file_sha256": "c609b3c5aa687f08779ff3b62bce592359ed3f2974ccda9dec7f4fc0cab54bc9",
+    "exact_copy": true
+  },
+  {
+    "original": "scripts/run_style_confirmation_v2.py",
+    "destination": "reference_code/run_style_confirmation_v2.py",
+    "original_file_sha256": "dbe8b788fcae97dd01296a5ad15f5d78fc427000d5f36fc191d7ea47d953c9f8",
+    "exact_copy": true
+  },
+  {
+    "original": "scripts/run_existing_continuity_v3.py",
+    "destination": "reference_code/run_existing_continuity_v3.py",
+    "original_file_sha256": "436d85c2a0249549f7b8788b3f0f8568e681f193bc3442ddaf84bf48885fcaa9",
+    "exact_copy": true
+  },
+  {
+    "original": "scripts/run_existing_continuity_v2.py",
+    "destination": "reference_code/run_existing_continuity_v2.py",
+    "original_file_sha256": "d1adcae99cae6fdd99c74f7597b58222d65f5392e099a17d9094506e6cec85bb",
+    "exact_copy": true
+  },
+  {
+    "original": "scripts/run_mteval_tworesponse_extension_v2.py",
+    "destination": "reference_code/run_mteval_tworesponse_extension_v2.py",
+    "original_file_sha256": "df6b471fe2a1dca22b2373870ba0bab6e24be8f4db798b70d922a6d89403324f",
+    "exact_copy": true
+  },
+  {
+    "original": "scripts/run_mteval_continuity_v1.py",
+    "destination": "reference_code/run_mteval_continuity_v1.py",
+    "original_file_sha256": "a391c082eee9be62c14481d9ab466f53c58cd439bdd9b3e2f5bd471c513ba634",
+    "exact_copy": true
+  },
+  {
+    "original": "scripts/artifact_protocol_v2.py",
+    "destination": "reference_code/artifact_protocol_v2.py",
+    "original_file_sha256": "bdaf97fae72f0995d723bf7728d00f128c870565adfa1774251846b0f2467715",
+    "exact_copy": true
+  },
+  {
+    "original": "scripts/run_artifact_expansion.py",
+    "destination": "reference_code/run_artifact_expansion.py",
+    "original_file_sha256": "6e972456740123be99de3cb0835736a45a4ce7e606e46a3aad712d4fb84d1e2b",
+    "exact_copy": true
+  },
+  {
+    "original": "scripts/run_pilot.py",
+    "destination": "reference_code/run_pilot.py",
+    "original_file_sha256": "46c3531db75eced359ddce2f3fbd07897f8d1d9b1ba381420cb2629bc27ba0c1",
+    "exact_copy": true
+  },
+  {
+    "original": "scripts/pilot_data.py",
+    "destination": "reference_code/pilot_data.py",
+    "original_file_sha256": "c9fe4c5dd5383bfffb83bdd78266a76c0199af76285e48fd1a69aa95d6d436b9",
+    "exact_copy": true
+  },
+  {
+    "original": "scripts/audit_dense_reference.py",
+    "destination": "reference_code/audit_dense_reference.py",
+    "original_file_sha256": "eb3da39a6c00f4f97c3081cc946d4ff25bd29dbd4010df95b2dffc41a9fafb2c",
+    "exact_copy": true
+  },
+  {
+    "original": "scripts/run_steering_artifacts.py",
+    "destination": "reference_code/run_steering_artifacts.py",
+    "original_file_sha256": "67f4f1764b2182f03277e5277f46e05bc188ba1f6c123a60b1e8255aeb024e4b",
+    "exact_copy": true
+  }
+]

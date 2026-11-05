@@ -1,0 +1,34 @@
+{
+  "stage": "style_cue_ablation_v1",
+  "methods": [
+    "BKeep",
+    "CKeep",
+    "BRemove",
+    "CRemove"
+  ],
+  "source_histories": 11,
+  "related_requests": 22,
+  "expected_outputs": 88,
+  "output_cap": 1536,
+  "all_development": true,
+  "new_histories": 0,
+  "steering": false,
+  "manipulation": "Only the first user style clause is removed. Original assistant bodies and all other user text stay fixed. Removing the instruction does not undo how those assistants were generated.",
+  "metrics": "Primary: own-history cosine and C-B format effect under keep/remove, interaction (CKeep-BKeep)-(CRemove-BRemove), separately full-text and plaintext-first120words. Opposite-style margins secondary on 5 paired topic flows. All 6 flows included in own-history comparisons. Natural-only subsets descriptive. Original primary results untouched. No semantic-quality or pure tone claim.",
+  "protocol_sha256": "f73f61c3364f1c4ef44befe03bcd66758e5a2723afc4ace977f7378549ef40fc",
+  "source_sha256": {
+    "results/style_migration_v1/histories.jsonl": "20cd0d7c298584206f67fdd4167a112ab8e26b0329cc2087be0664412d0795f2",
+    "results/style_migration_v1/history_outputs.jsonl": "84dc03d2d9ba64a3959670ca0583e5c54080b3eb65a3735657ec1fdfbf34fa69",
+    "results/style_migration_v1/outputs.jsonl": "c0a619bdbfee633d218855f5c6193e564e6bea42de069c08652ff4a3d2ea655d",
+    "results/style_migration_v1/config.json": "6cb04e8a937f2cc6dee9d9e9ee80f68bb0f209205ecce17ab6ce0652d4f9b6f0",
+    "artifacts/style_metric_assets_v1.json": "a56a0d88472ae43d8b28c2db33765d83fe442516522e145ab58d86758fabfa27"
+  },
+  "code_sha256": {
+    "run_style_cue_ablation_v1.py": "0fbfa1b18dede93d743c3c071dd1bd4b2069d8d7ee070f6f5adeabcebe19702a",
+    "style_cue_verification_common_v1.py": "7b1a050f7cd27aa1481749c2647a7772936f8f3495fbc1f79cda1c5e36539bb7",
+    "migration_exploration_core_v1.py": "31da0916506fa54cc3b78f0eab7f7f96803fa3358e5653d6410bd93c3dd412cd",
+    "run_policy_threeway_v1.py": "2f94aadbc286aaf207f5efd07b1f450b5e519550ebffa681c14069cf12753382",
+    "run_existing_continuity_v3.py": "436d85c2a0249549f7b8788b3f0f8568e681f193bc3442ddaf84bf48885fcaa9",
+    "run_style_migration_v1.py": "643319c8e865cdd08ed5394cf09fca2a0414ef46201575aa3cd1f3c3518345ab"
+  }
+}

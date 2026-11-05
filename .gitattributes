@@ -1,0 +1,2 @@
+# Preserve raw experiment/code snapshot bytes across Windows and Linux checkouts.
+* -text

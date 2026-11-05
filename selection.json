@@ -1,0 +1,12 @@
+{
+  "prepared": "2026-11-04",
+  "results_date": "2026-10-10 through 2026-10-14",
+  "new_model_calls": 0,
+  "purpose": "Course teamwork handoff, not a new benchmark or paper result.",
+  "choices": {
+    "01_editing": "All 12 frozen histories and 24 queries; six named methods out of nine. G/U/WrongD omitted to simplify method comparison, not based on case success. All 60 previously selected dense diagnostic records retained; three histories were an old development diagnostic, not representative sampling.",
+    "02_strategy": "All eight histories from the four selected public categories and all 80 final outputs; all 40 same-source extension outputs. Extension was prompted by a first-round gap and is not independent validation.",
+    "03_style": "All six casual histories and 48 corresponding outputs from the old cue ablation; all four new confirmation histories and all 52 outputs. Formal histories and encoder analyses omitted to focus on one readable feature. Old/new batches use related public question streams; no population generalization."
+  },
+  "caveat": "This handoff subset was chosen after results were known for clarity. It cannot estimate overall migration harm. Different queries/methods are not independent source samples. Historical N means role replay (B), not actual online A."
+}

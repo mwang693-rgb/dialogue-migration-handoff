@@ -1,0 +1,75 @@
+{
+  "verified": true,
+  "source_questions": 20,
+  "selected_histories": 4,
+  "valid_histories": 4,
+  "history_attempts": 12,
+  "final_outputs": 52,
+  "actual_free_outputs": 64,
+  "history_token_roundtrip_differences": 0,
+  "native_pair_checks": [
+    {
+      "case_id": "confirm-00-casual",
+      "query": "q0",
+      "a_b_input_ids_equal": true
+    },
+    {
+      "case_id": "confirm-00-casual",
+      "query": "q1",
+      "a_b_input_ids_equal": true
+    },
+    {
+      "case_id": "confirm-00-casual",
+      "query": "override_q1",
+      "a_b_input_ids_equal": true
+    },
+    {
+      "case_id": "confirm-01-casual",
+      "query": "q0",
+      "a_b_input_ids_equal": true
+    },
+    {
+      "case_id": "confirm-01-casual",
+      "query": "q1",
+      "a_b_input_ids_equal": true
+    },
+    {
+      "case_id": "confirm-01-casual",
+      "query": "override_q1",
+      "a_b_input_ids_equal": true
+    },
+    {
+      "case_id": "confirm-02-casual",
+      "query": "q0",
+      "a_b_input_ids_equal": true
+    },
+    {
+      "case_id": "confirm-02-casual",
+      "query": "q1",
+      "a_b_input_ids_equal": true
+    },
+    {
+      "case_id": "confirm-02-casual",
+      "query": "override_q1",
+      "a_b_input_ids_equal": true
+    },
+    {
+      "case_id": "confirm-03-casual",
+      "query": "q0",
+      "a_b_input_ids_equal": true
+    },
+    {
+      "case_id": "confirm-03-casual",
+      "query": "q1",
+      "a_b_input_ids_equal": true
+    },
+    {
+      "case_id": "confirm-03-casual",
+      "query": "override_q1",
+      "a_b_input_ids_equal": true
+    }
+  ],
+  "all_literal_counts_and_gate_recomputed": true,
+  "source_selection_recomputed": true,
+  "gate_pass": false
+}

@@ -1,0 +1,598 @@
+{
+  "editing": {
+    "histories": 12,
+    "queries": 24,
+    "outputs": 144,
+    "metrics": {
+      "N": {
+        "n": 24,
+        "joint_correct": 15,
+        "exact_native_text": 24,
+        "retained_items": 96,
+        "expected_retained_items": 100,
+        "retention_note": "Book/page and table/row membership proxy; not order or field-level preservation. Code uses AST joint check separately.",
+        "capped": 0,
+        "family_correct": {
+          "book": 0,
+          "code": 8,
+          "table": 7
+        }
+      },
+      "P": {
+        "n": 24,
+        "joint_correct": 17,
+        "exact_native_text": 18,
+        "retained_items": 97,
+        "expected_retained_items": 100,
+        "retention_note": "Book/page and table/row membership proxy; not order or field-level preservation. Code uses AST joint check separately.",
+        "capped": 0,
+        "family_correct": {
+          "book": 1,
+          "code": 8,
+          "table": 8
+        }
+      },
+      "Hint": {
+        "n": 24,
+        "joint_correct": 19,
+        "exact_native_text": 17,
+        "retained_items": 97,
+        "expected_retained_items": 100,
+        "retention_note": "Book/page and table/row membership proxy; not order or field-level preservation. Code uses AST joint check separately.",
+        "capped": 0,
+        "family_correct": {
+          "book": 3,
+          "code": 8,
+          "table": 8
+        }
+      },
+      "D": {
+        "n": 24,
+        "joint_correct": 11,
+        "exact_native_text": 13,
+        "retained_items": 90,
+        "expected_retained_items": 100,
+        "retention_note": "Book/page and table/row membership proxy; not order or field-level preservation. Code uses AST joint check separately.",
+        "capped": 0,
+        "family_correct": {
+          "book": 1,
+          "code": 8,
+          "table": 2
+        }
+      },
+      "RandomD": {
+        "n": 24,
+        "joint_correct": 15,
+        "exact_native_text": 16,
+        "retained_items": 98,
+        "expected_retained_items": 100,
+        "retention_note": "Book/page and table/row membership proxy; not order or field-level preservation. Code uses AST joint check separately.",
+        "capped": 0,
+        "family_correct": {
+          "book": 1,
+          "code": 8,
+          "table": 6
+        }
+      },
+      "ReverseD": {
+        "n": 24,
+        "joint_correct": 18,
+        "exact_native_text": 18,
+        "retained_items": 99,
+        "expected_retained_items": 100,
+        "retention_note": "Book/page and table/row membership proxy; not order or field-level preservation. Code uses AST joint check separately.",
+        "capped": 0,
+        "family_correct": {
+          "book": 2,
+          "code": 8,
+          "table": 8
+        }
+      }
+    },
+    "dense_records": 60,
+    "dense_examples": [
+      {
+        "case_id": "artifact-book-0",
+        "query_id": "replace_page",
+        "reference": "N",
+        "dense_mean_kl": 0.0009747705218764234,
+        "old_sparse_mean_recomputed64": 4.86267499432967e-08,
+        "first_native_paste_free_divergence": null,
+        "kl_at_first_free_divergence": null
+      },
+      {
+        "case_id": "artifact-book-0",
+        "query_id": "reorder_pages",
+        "reference": "N",
+        "dense_mean_kl": 0.04103092691481692,
+        "old_sparse_mean_recomputed64": 1.46912050398991e-08,
+        "first_native_paste_free_divergence": 11,
+        "kl_at_first_free_divergence": 4.5920212669670235
+      },
+      {
+        "case_id": "artifact-code-0",
+        "query_id": "rename_function",
+        "reference": "N",
+        "dense_mean_kl": 9.03374010657756e-06,
+        "old_sparse_mean_recomputed64": 0.00011297916010988363,
+        "first_native_paste_free_divergence": null,
+        "kl_at_first_free_divergence": null
+      },
+      {
+        "case_id": "artifact-code-0",
+        "query_id": "set_docstring",
+        "reference": "N",
+        "dense_mean_kl": 0.0005608958812745852,
+        "old_sparse_mean_recomputed64": 0.00024225607716690965,
+        "first_native_paste_free_divergence": null,
+        "kl_at_first_free_divergence": null
+      },
+      {
+        "case_id": "artifact-table-0",
+        "query_id": "delete_row",
+        "reference": "N",
+        "dense_mean_kl": 0.0005109245130344409,
+        "old_sparse_mean_recomputed64": 9.079929562419584e-08,
+        "first_native_paste_free_divergence": null,
+        "kl_at_first_free_divergence": null
+      },
+      {
+        "case_id": "artifact-table-0",
+        "query_id": "update_budget",
+        "reference": "N",
+        "dense_mean_kl": 0.0001606082959666813,
+        "old_sparse_mean_recomputed64": 2.5393992252878074e-07,
+        "first_native_paste_free_divergence": 188,
+        "kl_at_first_free_divergence": 0.03125897554881521
+      }
+    ]
+  },
+  "strategy": {
+    "histories": 8,
+    "established": 7,
+    "final_outputs": 80,
+    "groups": {
+      "combination:two_responses": {
+        "AOnline": {
+          "n": 4,
+          "passed": 4
+        },
+        "BReplay": {
+          "n": 4,
+          "passed": 4
+        },
+        "BSplitNull": {
+          "n": 4,
+          "passed": 4
+        },
+        "CPasted": {
+          "n": 4,
+          "passed": 3
+        },
+        "CSpecificRule": {
+          "n": 4,
+          "passed": 4
+        }
+      },
+      "format:bullet_list": {
+        "AOnline": {
+          "n": 4,
+          "passed": 4
+        },
+        "BReplay": {
+          "n": 4,
+          "passed": 4
+        },
+        "BSplitNull": {
+          "n": 4,
+          "passed": 4
+        },
+        "CPasted": {
+          "n": 4,
+          "passed": 4
+        },
+        "CSpecificRule": {
+          "n": 4,
+          "passed": 4
+        }
+      },
+      "format:json_format": {
+        "AOnline": {
+          "n": 4,
+          "passed": 4
+        },
+        "BReplay": {
+          "n": 4,
+          "passed": 4
+        },
+        "BSplitNull": {
+          "n": 4,
+          "passed": 4
+        },
+        "CPasted": {
+          "n": 4,
+          "passed": 4
+        },
+        "CSpecificRule": {
+          "n": 4,
+          "passed": 4
+        }
+      },
+      "startend:end_phrase": {
+        "AOnline": {
+          "n": 4,
+          "passed": 3
+        },
+        "BReplay": {
+          "n": 4,
+          "passed": 4
+        },
+        "BSplitNull": {
+          "n": 4,
+          "passed": 4
+        },
+        "CPasted": {
+          "n": 4,
+          "passed": 4
+        },
+        "CSpecificRule": {
+          "n": 4,
+          "passed": 4
+        }
+      }
+    },
+    "extension": {
+      "histories": 2,
+      "outputs": 40,
+      "methods": {
+        "BReplay": {
+          "n": 10,
+          "passed": 9
+        },
+        "BSplitNull": {
+          "n": 10,
+          "passed": 9
+        },
+        "CPasted": {
+          "n": 10,
+          "passed": 9
+        },
+        "CSpecificRule": {
+          "n": 10,
+          "passed": 10
+        }
+      }
+    },
+    "first_batch_gaps": [
+      {
+        "case_id": "mteval-24",
+        "query": 0,
+        "inst_name": "combination:two_responses",
+        "source_history_established": true,
+        "outputs": {
+          "AOnline": "Vaccines work by training your immune system to recognize and fight specific diseases. They contain weakened or dead pathogens, or parts of them, which stimulate your immune system to produce antibodies. This way, if you encounter the actual disease, your body is already prepared to fight it off.\n\nVaccines are crucial because they prevent the spread of diseases, protect vulnerable populations, and reduce the burden on healthcare systems. By getting vaccinated, you not only protect yourself but also help create herd immunity, which protects those who cannot be vaccinated due to age or health conditions.\n\n******\n\nVaccines work by introducing a harmless form of a virus or bacteria into your body, which triggers your immune system to create antibodies. These antibodies help your body recognize and fight off the actual disease if you are exposed. They are important because they prevent the spread of diseases, protect vulnerable populations, and reduce the strain on healthcare resources. By getting vaccinated, you contribute to the overall health and safety of your community.",
+          "BReplay": "Vaccines work by training your immune system to recognize and fight specific diseases. They contain weakened or dead pathogens, or parts of them, which stimulate your immune system to produce antibodies. This way, if you encounter the actual disease, your body is already prepared to fight it off.\n\nVaccines are crucial because they prevent the spread of diseases, protect vulnerable populations, and reduce the burden on healthcare systems. By getting vaccinated, you not only protect yourself but also help create herd immunity, which protects those who cannot be vaccinated due to age or health conditions.\n\n******\n\nVaccines work by introducing a harmless form of a virus or bacteria into your body, which triggers your immune system to produce antibodies. These antibodies help your body recognize and fight off the actual disease if you are exposed. Vaccines are important because they prevent the spread of diseases, protect vulnerable populations, and reduce the strain on healthcare resources. By getting vaccinated, you contribute to the overall health and safety of your community.",
+          "CPasted": "Vaccines work by training your immune system to recognize and fight off specific diseases. They contain weakened or dead pathogens, which stimulate your immune system to produce antibodies without causing the full-blown disease. This way, if you encounter the actual pathogen later, your immune system is already prepared to fight it off.\n\nVaccines are crucial because they protect individuals and communities by preventing the spread of diseases. They reduce the burden on healthcare systems and save lives. By getting vaccinated, you not only protect yourself but also help create herd immunity, which protects those who cannot be vaccinated, such as infants and people with certain medical conditions.",
+          "BSplitNull": "Vaccines work by training your immune system to recognize and fight specific diseases. They contain weakened or dead pathogens, or parts of them, which stimulate your immune system to produce antibodies. This way, if you encounter the actual disease, your body is already prepared to fight it off.\n\nVaccines are crucial because they prevent the spread of diseases, protect vulnerable populations, and reduce the burden on healthcare systems. By getting vaccinated, you not only protect yourself but also help create herd immunity, which protects those who cannot be vaccinated due to age or health conditions.\n\n******\n\nVaccines work by introducing a harmless form of a virus or bacteria into your body, which triggers your immune system to produce antibodies. These antibodies help your body recognize and fight off the actual disease if you are exposed. Vaccines are important because they prevent the spread of diseases, protect vulnerable populations, and reduce the strain on healthcare resources. By getting vaccinated, you contribute to the overall health and safety of your community.",
+          "CSpecificRule": "Vaccines work by introducing a weakened or inactivated form of a virus or bacteria into the body. This triggers an immune response, which helps the body recognize and fight off the actual virus if exposed in the future. They are crucial because they prevent the spread of diseases and protect individuals who might not be able to get vaccinated due to health reasons. ******\n\nVaccines work by priming the immune system to recognize and fight specific pathogens. They are important because they not only protect the individual but also contribute to herd immunity, reducing the overall spread of diseases in a community."
+        }
+      }
+    ]
+  },
+  "style": {
+    "old_histories": 6,
+    "old_outputs": 48,
+    "old": {
+      "full": {
+        "counts": {
+          "BKeep": 9,
+          "BRemove": 5,
+          "CKeep": 20,
+          "CRemove": 2
+        },
+        "source_rows": [
+          {
+            "case_id": "style-00-casual",
+            "rates": {
+              "BKeep": 0.0,
+              "BRemove": 0.0,
+              "CKeep": 1.3521923620933523,
+              "CRemove": 0.0
+            },
+            "c_minus_b": 1.3521923620933523
+          },
+          {
+            "case_id": "style-01-casual",
+            "rates": {
+              "BKeep": 0.0,
+              "BRemove": 0.0,
+              "CKeep": 0.8591065292096219,
+              "CRemove": 0.0
+            },
+            "c_minus_b": 0.8591065292096219
+          },
+          {
+            "case_id": "style-02-casual",
+            "rates": {
+              "BKeep": 0.4497751124437781,
+              "BRemove": 0.2254791431792559,
+              "CKeep": 0.5771459849314187,
+              "CRemove": 0.1610305958132045
+            },
+            "c_minus_b": 0.12737087248764056
+          },
+          {
+            "case_id": "style-03-casual",
+            "rates": {
+              "BKeep": 0.2724795640326976,
+              "BRemove": 0.0,
+              "CKeep": 0.5494505494505495,
+              "CRemove": 0.0
+            },
+            "c_minus_b": 0.2769709854178519
+          },
+          {
+            "case_id": "style-04-casual",
+            "rates": {
+              "BKeep": 0.07352941176470588,
+              "BRemove": 0.08025682182985554,
+              "CKeep": 0.17953321364452424,
+              "CRemove": 0.0
+            },
+            "c_minus_b": 0.10600380187981835
+          },
+          {
+            "case_id": "style-05-casual",
+            "rates": {
+              "BKeep": 0.0,
+              "BRemove": 0.0,
+              "CKeep": 0.9615384615384616,
+              "CRemove": 0.0
+            },
+            "c_minus_b": 0.9615384615384616
+          }
+        ],
+        "mean_c_minus_b": 0.6138638354377911,
+        "positive_sources": 6,
+        "mean_rates": {
+          "BKeep": 0.13263068137353026,
+          "BRemove": 0.05095599416818524,
+          "CKeep": 0.7464945168113214,
+          "CRemove": 0.026838432635534083
+        }
+      },
+      "first120": {
+        "counts": {
+          "BKeep": 5,
+          "BRemove": 1,
+          "CKeep": 11,
+          "CRemove": 0
+        },
+        "source_rows": [
+          {
+            "case_id": "style-00-casual",
+            "rates": {
+              "BKeep": 0.0,
+              "BRemove": 0.0,
+              "CKeep": 0.8887502923520698,
+              "CRemove": 0.0
+            },
+            "c_minus_b": 0.8887502923520698
+          },
+          {
+            "case_id": "style-01-casual",
+            "rates": {
+              "BKeep": 0.0,
+              "BRemove": 0.0,
+              "CKeep": 0.7936507936507936,
+              "CRemove": 0.0
+            },
+            "c_minus_b": 0.7936507936507936
+          },
+          {
+            "case_id": "style-02-casual",
+            "rates": {
+              "BKeep": 1.1627906976744187,
+              "BRemove": 0.0,
+              "CKeep": 1.1910860655737705,
+              "CRemove": 0.0
+            },
+            "c_minus_b": 0.02829536789935183
+          },
+          {
+            "case_id": "style-03-casual",
+            "rates": {
+              "BKeep": 0.4032258064516129,
+              "BRemove": 0.0,
+              "CKeep": 0.4032258064516129,
+              "CRemove": 0.0
+            },
+            "c_minus_b": 0.0
+          },
+          {
+            "case_id": "style-04-casual",
+            "rates": {
+              "BKeep": 0.4132231404958678,
+              "BRemove": 0.4132231404958678,
+              "CKeep": 0.819672131147541,
+              "CRemove": 0.0
+            },
+            "c_minus_b": 0.4064489906516732
+          },
+          {
+            "case_id": "style-05-casual",
+            "rates": {
+              "BKeep": 0.0,
+              "BRemove": 0.0,
+              "CKeep": 0.9615384615384616,
+              "CRemove": 0.0
+            },
+            "c_minus_b": 0.9615384615384616
+          }
+        ],
+        "mean_c_minus_b": 0.513113984348725,
+        "positive_sources": 5,
+        "mean_rates": {
+          "BKeep": 0.32987327410364986,
+          "BRemove": 0.06887052341597796,
+          "CKeep": 0.8429872584523749,
+          "CRemove": 0.0
+        }
+      }
+    },
+    "new_histories": 4,
+    "new_outputs": 52,
+    "new": {
+      "full": {
+        "counts": {
+          "AOnline": 6,
+          "BKeep": 7,
+          "BRemove": 0,
+          "CKeep": 6,
+          "CRemove": 0
+        },
+        "source_rows": [
+          {
+            "case_id": "confirm-00-casual",
+            "rates": {
+              "AOnline": 0.4291845493562232,
+              "BKeep": 0.9578544061302682,
+              "BRemove": 0.0,
+              "CKeep": 0.656084656084656,
+              "CRemove": 0.0
+            },
+            "c_minus_b": -0.30176975004561213
+          },
+          {
+            "case_id": "confirm-01-casual",
+            "rates": {
+              "AOnline": 0.16666666666666666,
+              "BKeep": 0.0,
+              "BRemove": 0.0,
+              "CKeep": 0.0,
+              "CRemove": 0.0
+            },
+            "c_minus_b": 0.0
+          },
+          {
+            "case_id": "confirm-02-casual",
+            "rates": {
+              "AOnline": 0.18518518518518517,
+              "BKeep": 0.19011406844106463,
+              "BRemove": 0.0,
+              "CKeep": 0.28735632183908044,
+              "CRemove": 0.0
+            },
+            "c_minus_b": 0.09724225339801582
+          },
+          {
+            "case_id": "confirm-03-casual",
+            "rates": {
+              "AOnline": 0.78125,
+              "BKeep": 0.3546099290780142,
+              "BRemove": 0.0,
+              "CKeep": 2.1980676328502415,
+              "CRemove": 0.0
+            },
+            "c_minus_b": 1.8434577037722273
+          }
+        ],
+        "mean_c_minus_b": 0.40973255178115775,
+        "positive_sources": 2,
+        "mean_rates": {
+          "AOnline": 0.39057160030201876,
+          "BKeep": 0.37564460091233676,
+          "BRemove": 0.0,
+          "CKeep": 0.7853771526934945,
+          "CRemove": 0.0
+        }
+      },
+      "first120": {
+        "counts": {
+          "AOnline": 3,
+          "BKeep": 3,
+          "BRemove": 0,
+          "CKeep": 5,
+          "CRemove": 0
+        },
+        "source_rows": [
+          {
+            "case_id": "confirm-00-casual",
+            "rates": {
+              "AOnline": 0.4098360655737705,
+              "BKeep": 0.8064516129032258,
+              "BRemove": 0.0,
+              "CKeep": 0.4065040650406504,
+              "CRemove": 0.0
+            },
+            "c_minus_b": -0.39994754786257536
+          },
+          {
+            "case_id": "confirm-01-casual",
+            "rates": {
+              "AOnline": 0.0,
+              "BKeep": 0.0,
+              "BRemove": 0.0,
+              "CKeep": 0.0,
+              "CRemove": 0.0
+            },
+            "c_minus_b": 0.0
+          },
+          {
+            "case_id": "confirm-02-casual",
+            "rates": {
+              "AOnline": 0.0,
+              "BKeep": 0.0,
+              "BRemove": 0.0,
+              "CKeep": 0.4032258064516129,
+              "CRemove": 0.0
+            },
+            "c_minus_b": 0.4032258064516129
+          },
+          {
+            "case_id": "confirm-03-casual",
+            "rates": {
+              "AOnline": 0.8,
+              "BKeep": 0.4132231404958678,
+              "BRemove": 0.0,
+              "CKeep": 2.1980676328502415,
+              "CRemove": 0.0
+            },
+            "c_minus_b": 1.7848444923543738
+          }
+        ],
+        "mean_c_minus_b": 0.44703068773585286,
+        "positive_sources": 2,
+        "mean_rates": {
+          "AOnline": 0.30245901639344264,
+          "BKeep": 0.30491868834977337,
+          "BRemove": 0.0,
+          "CKeep": 0.7519493760856262,
+          "CRemove": 0.0
+        }
+      }
+    },
+    "override": {
+      "AOnline": {
+        "n": 4,
+        "zero_short_forms": 4
+      },
+      "BKeep": {
+        "n": 4,
+        "zero_short_forms": 4
+      },
+      "CKeep": {
+        "n": 4,
+        "zero_short_forms": 4
+      }
+    },
+    "frozen_gate_pass": false,
+    "gate_reasons": [
+      "full positive_C_minus_B below three-quarter source threshold",
+      "first120 positive_C_minus_B below three-quarter threshold",
+      "Fewer than four additional actual listed short forms in C vs B"
+    ],
+    "steering_outputs": 0
+  },
+  "note": "Recomputed from the selected recorded outputs, not new inference. Source histories, not outputs, are sampling units."
+}
