@@ -1,10 +1,10 @@
 # Conversation format experiments
 
-We tested whether copying a conversation into one user message changes the next reply. The setup is settled; we are still choosing the task and the outcome measure for the course project.
+We tested whether copying a conversation into one user message changes the next reply. The confirmation task is response-rule compliance, with a separate rule-change check.
 
 This repository collects three small experiments from October 10–14, 2026. Start with the [results](reports/results.md), or read the [examples](reports/examples.md) to see the actual replies. The [experiment notes](docs/experiment-notes.md) cover the other things we tried. A [project outline](docs/project-outline.md) is included for the team to work from.
 
-The next-batch code is under [confirmation/](confirmation/README.md). It adds the four-condition run and separate nat/flat activation exports. Its protocol is a draft pending the new source list and team review; no new model results are included.
+The next-batch code is under [confirmation/](confirmation/README.md). [Protocol v2](PREREGISTRATION.md) fixes four rules, a public question source, 120 accepted histories, four input conditions and separate multi-layer nat/flat exports. Historical results below remain unchanged. New confirmation results will be delivered separately after validation; no confirmation outcome is claimed here.
 
 |Experiment|What we measured|What we found|
 |---|---|---|

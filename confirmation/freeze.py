@@ -1,6 +1,7 @@
 """Create a local registration once the team has reviewed protocol and new cases."""
 import argparse
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from confirmation.common import ROOT, read, rows, sha, validate_cases, write, normalize
@@ -28,8 +29,8 @@ def main():
     for c in cases:
         for q in c['history_questions']+[c['question']]:
             assert not any(normalize(q) in t for t in old if t), 'Question occurs in exported development histories'
-    files = sorted((ROOT/'confirmation').glob('*.py')) + [ROOT/'reference_code/migration_exploration_core_v1.py', ROOT/'reference_code/run_policy_threeway_v1.py']
-    write(a.out,dict(status='registered_before_generation', review_note=a.review_note,
+    files = sorted((ROOT/'confirmation').glob('*.py'))+sorted((ROOT/'analysis').glob('*.py'))+[ROOT/'PREREGISTRATION.md',ROOT/'handoff.py',ROOT/'reference_code/migration_exploration_core_v1.py', ROOT/'reference_code/run_policy_threeway_v1.py']
+    write(a.out,dict(status='registered_before_generation',registered_utc=datetime.now(timezone.utc).isoformat(),review_note=a.review_note,
                     protocol_sha256=sha(a.protocol), cases_sha256=sha(a.cases), sources=len(cases),
                     code_sha256={str(f.relative_to(ROOT)):sha(f) for f in files},
                     novelty_check='Question substring check against exported development histories only; provenance still requires team review.'))

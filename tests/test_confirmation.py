@@ -54,6 +54,24 @@ class ConfirmationProtocol(unittest.TestCase):
         self.assertEqual(plan['histories']*plan['change_requests_per_history']*len(cfg['conditions']),plan['change_outputs'])
         self.assertEqual(plan['histories']*plan['requests_per_history']*2*len(cfg['layers']),plan['activation_records'])
 
+    def test_v2_candidate_pool_and_current_rule_checks(self):
+        from confirmation.common import rows
+        cfg=read(ROOT/'confirmation/protocol.json')
+        cases=rows(ROOT/'data/confirmation_v2/candidates.jsonl')
+        validate_cases(cases,cfg,confirmation=True)
+        from collections import Counter
+        self.assertEqual(set(Counter(c['inst_name'] for c in cases).values()),{60})
+        forms={'combination:two_responses':'First. ****** Second.',
+               'format:json_format':'{"answer": "test"}',
+               'format:bullet_list':'- First\n- Second',
+               'startend:end_phrase':'Test. Is there anything else I can help with?'}
+        for c in cases[:4]:
+            old=forms[c['inst_name']]
+            self.assertTrue(check_rule(old,'ordinary',False,200,c['inst_name'],c['inst_args'])['passed'])
+            self.assertFalse(check_rule(old,'change',False,200,c['inst_name'],c['inst_args'])['passed'])
+            self.assertTrue(check_rule('A plain reply.','change',False,200,c['inst_name'],c['inst_args'])['passed'])
+            self.assertTrue(request_text('Question','change','C_reminder',cfg,c).endswith(c['change_text']))
+
 
 @unittest.skipUnless(importlib.util.find_spec('torch') is not None,'PyTorch needed for tensor interface tests')
 class ActivationExport(unittest.TestCase):

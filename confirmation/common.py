@@ -38,7 +38,7 @@ def normalize(text):
 def validate_cases(cases, cfg, confirmation=False):
     assert len({c['case_id'] for c in cases}) == len(cases), 'Duplicate case IDs'
     if confirmation:
-        assert len(cases) == cfg['target_sources']
+        assert len(cases) == cfg.get('max_candidates',cfg['target_sources'])
     seen = set()
     for c in cases:
         assert c['source_id'] and c['case_id']
@@ -46,6 +46,9 @@ def validate_cases(cases, cfg, confirmation=False):
         assert len(c['history_questions']) == cfg['history_turns']
         assert isinstance(c['question'], str) and c['question'].strip()
         assert c.get('provenance'), 'Record source or construction recipe'
+        if confirmation:
+            assert c['inst_name'] in cfg['rules'] and isinstance(c['inst_args'],dict)
+            assert c['rule_text'] and c['change_text']
         for q in c['history_questions'] + [c['question']]:
             n = normalize(q)
             assert n and n not in seen, 'Repeated question: group or revise before freezing'
@@ -64,7 +67,17 @@ def split_sources(source_ids, seed=453, fractions=(0.7, 0.15, 0.15)):
     return {s: 'train' if i < train else 'validation' if i < train+val else 'test' for i,s in enumerate(ids)}
 
 
-def check_rule(text, request_type, truncated=False, word_limit=200):
+def check_rule(text, request_type, truncated=False, word_limit=200, inst_name=None, inst_args=None):
+    if inst_name is not None:
+        from handoff import check_strategy
+        args=inst_args or {}
+        if request_type=='ordinary': form=check_strategy(text,dict(inst_name=inst_name,inst_args=args))
+        elif inst_name=='combination:two_responses': form=bool(text.strip()) and '******' not in text
+        elif inst_name=='format:json_format': form=bool(text.strip()) and not check_strategy(text,dict(inst_name=inst_name,inst_args=args)) and '```' not in text
+        elif inst_name=='format:bullet_list': form=bool(text.strip()) and '\n\n' not in text.strip() and re.search(r'(?m)^\s*(?:[-*+]|\d+[.)])\s+',text) is None
+        elif inst_name=='startend:end_phrase': form=bool(text.strip()) and not check_strategy(text,dict(inst_name=inst_name,inst_args=args))
+        else:raise ValueError(inst_name)
+        return dict(form_pass=bool(form),words=len(text.split()),length_pass=len(text.split())<=word_limit,complete=not truncated,passed=bool(form and not truncated),definition='MT-Eval category rule (or explicit current-rule override) and complete stop; length is secondary.')
     parts = [s.strip() for s in text.split('******') if s.strip()]
     words = len(text.split())
     if request_type == 'ordinary':
@@ -83,9 +96,11 @@ def sample_audit_sources(source_ids, seed=453, count=12):
     return random.Random(seed).sample(sorted(set(source_ids)), min(count, len(set(source_ids))))
 
 
-def request_text(question, request_type, condition, cfg):
+def request_text(question, request_type, condition, cfg, case=None):
     assert request_type in ['ordinary','change'] and condition in cfg['conditions']
-    text=question+ ('\n\n'+cfg['override'] if request_type=='change' else '')
+    change=case['change_text'] if case else cfg['override']
+    ordinary=case['rule_text'] if case else cfg['ordinary_rule']
+    text=question+ ('\n\n'+change if request_type=='change' else '')
     if condition=='C_reminder':
-        text+='\n\nFor this reply, follow this response requirement: '+(cfg['ordinary_rule'] if request_type=='ordinary' else cfg['override'])
+        text+='\n\nFor this reply, follow this response requirement: '+(ordinary if request_type=='ordinary' else change)
     return text

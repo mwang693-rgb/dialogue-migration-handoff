@@ -20,7 +20,9 @@ def main():
     for file in sorted((a.run/'activations').glob('*.pt')):
         records.extend(torch.load(file,map_location='cpu',weights_only=True)['records'])
     a.out.mkdir(parents=True)
-    torch.save(dict(schema_version=1,is_synthetic=checked['synthetic'],run_kind=checked['run_kind'],hidden_size=checked['hidden_size'],records=records),a.out/'activations.pt')
+    for kind,name in [('ordinary','activations.pt'),('change','activations_change.pt')]:
+        selected=[r for r in records if r['request_type']==kind]
+        torch.save(dict(schema_version=1,is_synthetic=checked['synthetic'],run_kind=checked['run_kind'],request_type=kind,hidden_size=checked['hidden_size'],records=selected),a.out/name)
     for name in ['outputs.jsonl','cases.jsonl','histories.jsonl','protocol.json','registration.json','case_status.jsonl']:
         if (a.run/name).exists(): shutil.copyfile(a.run/name,a.out/name)
     write(a.out/'validation.json',checked)

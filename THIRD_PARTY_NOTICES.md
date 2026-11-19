@@ -7,3 +7,5 @@
 - Other datasets named in the overview log (WildChat, CoQA, ConvFinQA, SQA, Multi-IF, MultiTurnInstruct, LongMemEval, MathDial, Lost/GSM8K) are not republished by this handoff. Names identify previously explored routes; consult their original distribution terms before constructing another dataset.
 
 The repository MIT license covers original repository code and documentation; third-party material retains its own notice. The selection was made for course communication after the experiments, not as an unbiased sample of tasks. No private user chat, SSH configuration, token, password, model weights or KV cache dump is intentionally included.
+
+- **Dolly confirmation questions:** selected/filtered questions and constructed bundles in data/confirmation_v2 are adapted from Databricks databricks-dolly-15k (https://huggingface.co/datasets/databricks/databricks-dolly-15k), revision bdd27f4d94b9c1f951818a7da7fd7aeea5dbff1a, CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0/). This third-party data remains CC BY-SA 3.0, not repository MIT. Original reference answers are not included or used.

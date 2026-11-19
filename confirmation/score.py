@@ -37,7 +37,8 @@ def summarize(folder):
     index={(r['source_id'],r['request_type'],r['condition']):r for r in outputs}
     sources=sorted(set(r['source_id'] for r in outputs))
     assert len(index)==len(outputs)
-    for r in outputs: assert check_rule(r['text'],r['request_type'],r['termination']!='assistant_eos',cfg['word_limit'])==r['score']
+    for r in outputs:
+        assert check_rule(r['text'],r['request_type'],r['termination']!='assistant_eos',cfg['word_limit'],r['inst_name'],r['inst_args'])==r['score']
     groups={}
     for q in ['ordinary','change']:
         groups[q]={c:dict(n=len(sources),passed=sum(index[s,q,c]['score']['passed'] for s in sources)) for c in cfg['conditions']}
@@ -47,8 +48,12 @@ def summarize(folder):
     assert all(index[s,q,'A']['input_ids']==index[s,q,'B']['input_ids'] for s in sources for q in ['ordinary','change'])
     histories=rows(folder/'histories.jsonl');established=mean(h['established'] for h in histories)
     audit=read(folder/'audit_comparison.json') if (folder/'audit_comparison.json').exists() else None
-    checks=dict(valid_fraction=len(sources)/cfg['target_sources']>=cfg['gate']['min_valid_fraction'],established_fraction=established>=cfg['gate']['min_established_fraction'],effect_size=delta>=cfg['gate']['min_ordinary_B_minus_C'],positive_ci=ci[0]>0,AB_agreement=ab_agreement>=cfg['gate']['min_AB_behavior_agreement'],C_change=groups['change']['C']['passed']/len(sources)>=cfg['gate']['min_C_override_compliance'],human_audit=bool(audit and audit.get('complete') and audit.get('checker_agreement',0)>=cfg['audit']['min_checker_agreement']))
-    return dict(validation=validation,groups=groups,ordinary_B_minus_C=delta,source_bootstrap_95ci=ci,AB_behavior_agreement=ab_agreement,established_fraction=established,gate_checks=checks,intervention_gate_pass=all(checks.values()),probe_may_proceed_if_behavior_gate_fails=True)
+    checks=dict(full_sample=len(sources)==cfg['target_sources'],positive_ci=ci[0]>0)
+    strata={}
+    for name in cfg['rules']:
+        sub=[r for r in outputs if r['inst_name']==name]
+        strata[name]={q:{c:dict(n=sum(r['request_type']==q and r['condition']==c for r in sub),passed=sum(r['score']['passed'] for r in sub if r['request_type']==q and r['condition']==c)) for c in cfg['conditions']} for q in ['ordinary','change']}
+    return dict(validation=validation,groups=groups,by_rule=strata,ordinary_B_minus_C=delta,source_bootstrap_95ci=ci,AB_behavior_agreement=ab_agreement,established_fraction=established,human_audit=audit,gate_checks=checks,intervention_gate_pass=all(checks.values()),interventions_require_separate_registration=True,probe_may_proceed_if_behavior_gate_fails=True)
 
 
 def main():
