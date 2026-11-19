@@ -32,7 +32,7 @@ def main():
     files = sorted((ROOT/'confirmation').glob('*.py'))+sorted((ROOT/'analysis').glob('*.py'))+[ROOT/'PREREGISTRATION.md',ROOT/'handoff.py',ROOT/'reference_code/migration_exploration_core_v1.py', ROOT/'reference_code/run_policy_threeway_v1.py']
     write(a.out,dict(status='registered_before_generation',registered_utc=datetime.now(timezone.utc).isoformat(),review_note=a.review_note,
                     protocol_sha256=sha(a.protocol), cases_sha256=sha(a.cases), sources=len(cases),
-                    code_sha256={str(f.relative_to(ROOT)):sha(f) for f in files},
+                    code_sha256={f.relative_to(ROOT).as_posix():sha(f) for f in files},
                     novelty_check='Question substring check against exported development histories only; provenance still requires team review.'))
 
 
