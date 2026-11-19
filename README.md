@@ -4,6 +4,8 @@ We tested whether copying a conversation into one user message changes the next 
 
 This repository collects three small experiments from October 10–14, 2026. Start with the [results](reports/results.md), or read the [examples](reports/examples.md) to see the actual replies. The [experiment notes](docs/experiment-notes.md) cover the other things we tried. A [project outline](docs/project-outline.md) is included for the team to work from.
 
+The next-batch code is under [confirmation/](confirmation/README.md). It adds the four-condition run and separate nat/flat activation exports. Its protocol is a draft pending the new source list and team review; no new model results are included.
+
 |Experiment|What we measured|What we found|
 |---|---|---|
 |Editing books, code, and tables|Requested edits and preservation of unchanged content|Out of 24 requests: replay passed 15, pasted history 17, a continuation hint 19, and a history-difference vector 11.|
@@ -59,4 +61,4 @@ python scripts/run_new_threeway.py \
 
 There are 364 final answers and 60 distribution records. These are repeated measurements on a much smaller set of histories, not 424 independent samples. We chose these batches after seeing the results because they were easier to explain; the other exploratory runs are summarized in the notes.
 
-The original replies and scores are unchanged. AST comparisons accommodate the empty `type_params` field added in Python 3.12; nonempty type parameters and code strings still count. Third-party material retains its original license; see [sources](THIRD_PARTY_NOTICES.md).
+The original replies and scores are unchanged. AST comparisons accommodate the empty `type_params` field added in Python 3.12 and explicitly retain empty fields when dumping ASTs on Python 3.13. Nonempty type parameters and code strings still count. Third-party material retains its original license; see [sources](THIRD_PARTY_NOTICES.md).

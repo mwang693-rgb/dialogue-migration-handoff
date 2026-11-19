@@ -1,0 +1,49 @@
+{
+  "status": "draft",
+  "version": "response-rules-v1",
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "dtype": "bfloat16",
+  "seed": 453,
+  "target_sources": 120,
+  "sample_plan": {"histories": 120, "requests_per_history": 2, "ordinary_requests_per_history": 1, "change_requests_per_history": 1, "conditions_per_request": 4, "final_outputs": 960, "change_outputs": 480, "history_replies": 360, "total_free_generations": 1320, "activation_records": 3840},
+  "history_turns": 3,
+  "cap": 512,
+  "word_limit": 200,
+  "layers": [0, 4, 8, 12, 16, 20, 24, 28],
+  "position": "last assistant-generation-prefix token, before generating an answer",
+  "activation_export": {"conditions": ["nat", "flat"], "native_means": "B role replay, not A online", "dtype": "float32", "device": "cpu", "key": ["case_id", "query_id", "condition", "layer"], "n_tokens": "full serialized prompt length"},
+  "conditions": ["A", "B", "C", "C_reminder"],
+  "ordinary_rule": "Give two different responses separated by exactly six asterisks: ******. Keep the entire reply at most 200 words.",
+  "override": "For this reply only, replace our two-response rule: give one response, without the ****** separator. Keep the entire reply at most 200 words.",
+  "probe": {
+    "request_type": "ordinary",
+    "conditions": ["nat", "flat"],
+    "split": [0.7, 0.15, 0.15],
+    "seeds": [453, 454, 455],
+    "learning_rates": [0.001, 0.01],
+    "l2": [0.0001, 0.01, 0.1],
+    "epochs": 200,
+    "patience": 10,
+    "permutations": 200,
+    "bootstrap": 2000
+  },
+  "audit": {"sources": 12, "annotators": 2, "min_checker_agreement": 0.9},
+  "gate": {
+    "min_valid_fraction": 0.8,
+    "min_established_fraction": 0.8,
+    "min_ordinary_B_minus_C": 0.1,
+    "require_positive_95ci_lower": true,
+    "min_AB_behavior_agreement": 0.95,
+    "min_C_override_compliance": 0.8,
+    "requires_completed_human_audit": true
+  },
+  "intervention_if_gate_passes": {
+    "status": "planned_not_implemented_here",
+    "conditions": ["C", "explicit_rule_reminder", "history_difference", "same_norm_random", "reverse"],
+    "requires_separate_registration": true,
+    "scope": "generation-prefix last position and generated positions",
+    "extraction": "B minus C at the same fixed neutral cue; no final answer",
+    "no_probe_weight_as_automatic_steering_direction": true
+  }
+}
