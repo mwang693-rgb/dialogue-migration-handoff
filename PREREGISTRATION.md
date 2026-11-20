@@ -1,3 +1,25 @@
+# Version 2.1: technical rerun amendment, November 19, 2026
+
+The v2 run stopped after one accepted history (8 final answers), while building
+the second candidate. Actual generated tokens and text-tokenizer output used
+different BPE segmentations of the same text ("Cored"). The strict A/B identity
+assertion correctly prevented silently treating these as identical inputs.
+
+Before the replacement run, add one admission requirement: histories must be
+losslessly replayable as token IDs. Before either test request, compare the
+actual generated history IDs with the chat-template serialization. Reject and
+log same-text/different-ID histories, recording both streams and the first
+mismatch. If decoded text differs, still stop as an implementation error.
+This does not select on B/C performance or change questions, rule quotas,
+reserve size, decoding, scoring, sample size or probe plan. The maximum budget
+applies per attempt; this rerun can repeat work from the failed attempt.
+
+Preserve the complete failed run and old registration. Use a new registration
+and `confirmation-v2_1` directory. Report the technical rerun and the fact that
+one source's earlier answers existed before this amendment; do not describe
+all sources as previously unseen. The original v2 protocol follows unchanged.
+
+---
 # Response-rule confirmation: version 2
 
 Prepared November 19, 2026, before new confirmation generation. Version 1
@@ -185,3 +207,4 @@ cases can test CUDA/export first, never counted as confirmation. Do not change
 code/config inside a run. Preserve failures; implementation fixes require a
 new registration/run directory. This protocol fills version 1's open items;
 any later scientific change is a disclosed amendment.
+

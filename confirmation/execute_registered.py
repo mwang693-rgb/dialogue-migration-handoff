@@ -16,6 +16,7 @@ def main():
     p.add_argument('--model',type=Path,required=True)
     p.add_argument('--snapshot-manifest',type=Path,required=True)
     p.add_argument('--out',type=Path,required=True)
+    p.add_argument('--registration',type=Path,default=ROOT/'data/confirmation_v2/registration.json')
     a=p.parse_args()
     out=a.out.resolve();assert not out.exists()
     packed=out.with_name(out.name+'-handoff');assert not packed.exists()
@@ -26,7 +27,7 @@ def main():
     commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
     write(state,dict(phase='starting',git_commit=commit,started_utc=datetime.now(timezone.utc).isoformat()))
     commands=[
-        [sys.executable,str(ROOT/'confirmation/run_batch.py'),'--cases',str(ROOT/'data/confirmation_v2/candidates.jsonl'),'--registration',str(ROOT/'data/confirmation_v2/registration.json'),'--model',str(a.model),'--snapshot-manifest',str(a.snapshot_manifest),'--out',str(out)],
+        [sys.executable,str(ROOT/'confirmation/run_batch.py'),'--cases',str(ROOT/'data/confirmation_v2/candidates.jsonl'),'--registration',str(a.registration),'--model',str(a.model),'--snapshot-manifest',str(a.snapshot_manifest),'--out',str(out)],
         [sys.executable,str(ROOT/'confirmation/score.py'),'--run',str(out)],
         [sys.executable,str(ROOT/'confirmation/pack.py'),'--run',str(out),'--out',str(packed)],
     ]
@@ -40,7 +41,7 @@ def main():
         with tarfile.open(archive,'w:gz') as tar:
             tar.add(out,arcname=out.name)
             tar.add(packed,arcname=packed.name)
-            reg=read(ROOT/'data/confirmation_v2/registration.json')
+            reg=read(a.registration)
             for rel,digest in reg['code_sha256'].items():
                 assert sha(ROOT/rel)==digest
                 tar.add(ROOT/rel,arcname='code/'+rel)

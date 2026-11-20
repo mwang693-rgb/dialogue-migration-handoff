@@ -29,6 +29,20 @@ def capture_feed(engine, ids, cache, layers):
     return logits,new_cache,states
 
 
+def replayable_completion(engine, consumed, history):
+    """Require identical IDs; same-text noncanonical BPE is a pre-test rejection."""
+    tail=engine.tok.encode('<|im_end|>\n',add_special_tokens=False)
+    actual=consumed+tail
+    canonical=engine.serialize(history)
+    if actual==canonical:
+        return tail,None
+    # Do not mask a real content/template bug as a tokenizer rejection.
+    decode=lambda ids:engine.tok.decode(ids,skip_special_tokens=False,clean_up_tokenization_spaces=False)
+    assert decode(actual)==decode(canonical), 'Replay changes text, not merely BPE segmentation'
+    first=next((i for i,(x,y) in enumerate(zip(actual,canonical)) if x!=y),min(len(actual),len(canonical)))
+    return None,dict(reason='same_text_noncanonical_tokenization',first_mismatch=first,actual_n_tokens=len(actual),canonical_n_tokens=len(canonical),actual_ids=actual,canonical_ids=canonical,decoded_text_identical=True)
+
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--cases',type=Path,required=True)
@@ -100,7 +114,10 @@ def main():
                     append(a.out/'case_status.jsonl',dict(case_id=c['case_id'],source_id=c['source_id'],status='rule_not_established',turn=i,score=scores[-1]))
                     break
                 history += [dict(role='user',content=u),dict(role='assistant',content=r['text'])]
-                tail=e.tok.encode('<|im_end|>\n',add_special_tokens=False)
+                tail,rejection=replayable_completion(e,consumed,history)
+                if rejection:
+                    append(a.out/'case_status.jsonl',dict(case_id=c['case_id'],source_id=c['source_id'],status='nonreplayable_history',turn=i,**rejection))
+                    break
                 _,cache=e.feed(tail,cache);consumed+=tail
                 assert consumed==e.serialize(history), 'Retokenization drift: preserve run and inspect'
             else:

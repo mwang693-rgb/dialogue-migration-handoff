@@ -75,6 +75,20 @@ class ConfirmationProtocol(unittest.TestCase):
 
 @unittest.skipUnless(importlib.util.find_spec('torch') is not None,'PyTorch needed for tensor interface tests')
 class ActivationExport(unittest.TestCase):
+    def test_noncanonical_tokens_reject_before_test_without_ignoring_content_changes(self):
+        from types import SimpleNamespace
+        from confirmation.run_batch import replayable_completion
+        class Tokenizer:
+            def encode(self,*args,**kwargs):return [9]
+            def decode(self,ids,**kwargs):return {1:'same',2:'same',3:'different'}[ids[0]]
+        engine=SimpleNamespace(tok=Tokenizer(),serialize=lambda h:[2,9])
+        tail,reason=replayable_completion(engine,[1],[])
+        self.assertIsNone(tail)
+        self.assertEqual(reason['reason'],'same_text_noncanonical_tokenization')
+        self.assertTrue(reason['decoded_text_identical'])
+        self.assertEqual(replayable_completion(engine,[2],[]),([9],None))
+        with self.assertRaises(AssertionError):replayable_completion(engine,[3],[])
+
     def test_eight_layer_capture_reads_last_prompt_position(self):
         import torch
         from types import SimpleNamespace

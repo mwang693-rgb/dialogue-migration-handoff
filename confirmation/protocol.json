@@ -1,6 +1,6 @@
 {
   "status": "reviewed",
-  "version": "response-rules-v2",
+  "version": "response-rules-v2.1",
   "model": "Qwen/Qwen2.5-7B-Instruct",
   "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
   "dtype": "bfloat16",
@@ -119,5 +119,6 @@
     "format:json_format",
     "format:bullet_list",
     "startend:end_phrase"
-  ]
+  ],
+  "history_admission_addendum": "Before either test, reject same-text histories whose actual generated token stream cannot be reproduced exactly by role replay; save both token streams and reason. Text-changing mismatches remain fatal. Fixed candidate reserve only."
 }
