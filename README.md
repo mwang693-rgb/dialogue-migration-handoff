@@ -1,8 +1,10 @@
 # Conversation format experiments
 
-We tested whether copying a conversation into one user message changes the next reply. The setup is settled; we are still choosing the task and the outcome measure for the course project.
+We tested whether copying a conversation into one user message changes the next reply. The confirmation task is response-rule compliance, with a separate rule-change check.
 
 This repository collects three small experiments from October 10–14, 2026. Start with the [results](reports/results.md), or read the [examples](reports/examples.md) to see the actual replies. The [experiment notes](docs/experiment-notes.md) cover the other things we tried. A [project outline](docs/project-outline.md) is included for the team to work from.
+
+The completed confirmation batch is reported in [Response-rule confirmation](reports/confirmation-v2_1/README.md). It contains 120 accepted histories, 960 final answers and 3840 raw activation records. Ordinary-request compliance was B 112/120 and C 115/120, so the preregistered positive recovery gate did not pass and no activation-intervention batch was run. [Download the data and activation files](https://github.com/mwang693-rgb/dialogue-migration-handoff/releases/tag/confirmation-v2.1). Probe fitting and human review remain pending. Code is under [confirmation/](confirmation/README.md), with the technical rerun documented in [the protocol](PREREGISTRATION.md). The earlier exploratory results below are unchanged.
 
 |Experiment|What we measured|What we found|
 |---|---|---|
@@ -59,4 +61,4 @@ python scripts/run_new_threeway.py \
 
 There are 364 final answers and 60 distribution records. These are repeated measurements on a much smaller set of histories, not 424 independent samples. We chose these batches after seeing the results because they were easier to explain; the other exploratory runs are summarized in the notes.
 
-The original replies and scores are unchanged. AST comparisons accommodate the empty `type_params` field added in Python 3.12; nonempty type parameters and code strings still count. Third-party material retains its original license; see [sources](THIRD_PARTY_NOTICES.md).
+The original replies and scores are unchanged. AST comparisons accommodate the empty `type_params` field added in Python 3.12 and explicitly retain empty fields when dumping ASTs on Python 3.13. Nonempty type parameters and code strings still count. Third-party material retains its original license; see [sources](THIRD_PARTY_NOTICES.md).

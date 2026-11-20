@@ -1,0 +1,228 @@
+{
+  "validation": {
+    "valid": true,
+    "synthetic": false,
+    "run_kind": "confirmation",
+    "cases": 120,
+    "outputs": 960,
+    "activation_records": 3840,
+    "layers": [
+      0,
+      4,
+      8,
+      12,
+      16,
+      20,
+      24,
+      28
+    ],
+    "hidden_size": 3584
+  },
+  "groups": {
+    "ordinary": {
+      "A": {
+        "n": 120,
+        "passed": 112
+      },
+      "B": {
+        "n": 120,
+        "passed": 112
+      },
+      "C": {
+        "n": 120,
+        "passed": 115
+      },
+      "C_reminder": {
+        "n": 120,
+        "passed": 113
+      }
+    },
+    "change": {
+      "A": {
+        "n": 120,
+        "passed": 118
+      },
+      "B": {
+        "n": 120,
+        "passed": 117
+      },
+      "C": {
+        "n": 120,
+        "passed": 112
+      },
+      "C_reminder": {
+        "n": 120,
+        "passed": 106
+      }
+    }
+  },
+  "by_rule": {
+    "combination:two_responses": {
+      "ordinary": {
+        "A": {
+          "n": 30,
+          "passed": 24
+        },
+        "B": {
+          "n": 30,
+          "passed": 24
+        },
+        "C": {
+          "n": 30,
+          "passed": 25
+        },
+        "C_reminder": {
+          "n": 30,
+          "passed": 23
+        }
+      },
+      "change": {
+        "A": {
+          "n": 30,
+          "passed": 30
+        },
+        "B": {
+          "n": 30,
+          "passed": 30
+        },
+        "C": {
+          "n": 30,
+          "passed": 30
+        },
+        "C_reminder": {
+          "n": 30,
+          "passed": 28
+        }
+      }
+    },
+    "format:json_format": {
+      "ordinary": {
+        "A": {
+          "n": 30,
+          "passed": 29
+        },
+        "B": {
+          "n": 30,
+          "passed": 29
+        },
+        "C": {
+          "n": 30,
+          "passed": 30
+        },
+        "C_reminder": {
+          "n": 30,
+          "passed": 30
+        }
+      },
+      "change": {
+        "A": {
+          "n": 30,
+          "passed": 29
+        },
+        "B": {
+          "n": 30,
+          "passed": 30
+        },
+        "C": {
+          "n": 30,
+          "passed": 29
+        },
+        "C_reminder": {
+          "n": 30,
+          "passed": 30
+        }
+      }
+    },
+    "format:bullet_list": {
+      "ordinary": {
+        "A": {
+          "n": 30,
+          "passed": 29
+        },
+        "B": {
+          "n": 30,
+          "passed": 29
+        },
+        "C": {
+          "n": 30,
+          "passed": 30
+        },
+        "C_reminder": {
+          "n": 30,
+          "passed": 30
+        }
+      },
+      "change": {
+        "A": {
+          "n": 30,
+          "passed": 29
+        },
+        "B": {
+          "n": 30,
+          "passed": 29
+        },
+        "C": {
+          "n": 30,
+          "passed": 29
+        },
+        "C_reminder": {
+          "n": 30,
+          "passed": 30
+        }
+      }
+    },
+    "startend:end_phrase": {
+      "ordinary": {
+        "A": {
+          "n": 30,
+          "passed": 30
+        },
+        "B": {
+          "n": 30,
+          "passed": 30
+        },
+        "C": {
+          "n": 30,
+          "passed": 30
+        },
+        "C_reminder": {
+          "n": 30,
+          "passed": 30
+        }
+      },
+      "change": {
+        "A": {
+          "n": 30,
+          "passed": 30
+        },
+        "B": {
+          "n": 30,
+          "passed": 28
+        },
+        "C": {
+          "n": 30,
+          "passed": 24
+        },
+        "C_reminder": {
+          "n": 30,
+          "passed": 18
+        }
+      }
+    }
+  },
+  "ordinary_B_minus_C": -0.025,
+  "source_bootstrap_95ci": [
+    -0.058333333333333334,
+    0.0
+  ],
+  "AB_behavior_agreement": 0.9875,
+  "established_fraction": 1,
+  "human_audit": null,
+  "gate_checks": {
+    "full_sample": true,
+    "positive_ci": false
+  },
+  "intervention_gate_pass": false,
+  "interventions_require_separate_registration": true,
+  "probe_may_proceed_if_behavior_gate_fails": true
+}

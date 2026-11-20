@@ -1,289 +1,210 @@
-# Pre-registration: confirmatory batch on response rules
+# Version 2.1: technical rerun amendment, November 19, 2026
 
-**Status: version 1, registered 2026-11-18. No data for this batch has been
-generated.**
+The v2 run stopped after one accepted history (8 final answers), while building
+the second candidate. Actual generated tokens and text-tokenizer output used
+different BPE segmentations of the same text ("Cored"). The strict A/B identity
+assertion correctly prevented silently treating these as identical inputs.
 
-This version fixes the question, the task, the conditions, the primary measure,
-the stopping rule and the required activation export. Four items are still
-open and are marked `TO FILL` in the text: the manual-review size (§5.2), the
-rule-change wording (§6), the sample sizes (§7) and the detectable-effect bound
-(§8). Those will be committed as version 2 **before** generation begins, so
-every element of this protocol is fixed in advance of seeing any data from it.
+Before the replacement run, add one admission requirement: histories must be
+losslessly replayable as token IDs. Before either test request, compare the
+actual generated history IDs with the chat-template serialization. Reject and
+log same-text/different-ID histories, recording both streams and the first
+mismatch. If decoded text differs, still stop as an implementation error.
+This does not select on B/C performance or change questions, rule quotas,
+reserve size, decoding, scoring, sample size or probe plan. The maximum budget
+applies per attempt; this rerun can repeat work from the failed attempt.
 
-The value of this document rests entirely on its commit timestamps preceding
-the first generation output. Nothing here is revised after generation starts;
-any later change is recorded as a new version with its reason.
-
-| | |
-|---|---|
-| Registered by | Moyang Wang, Sishen Liu, Lang Zhou |
-| Version 1 | 2026-11-18 |
-| Version 2 (open items) | before generation |
-| Supersedes | nothing; this is the first pre-registration |
-| Applies to | one batch only, the confirmatory batch reported in §5.1 of the final report |
+Preserve the complete failed run and old registration. Use a new registration
+and `confirmation-v2_1` directory. Report the technical rerun and the fact that
+one source's earlier answers existed before this amendment; do not describe
+all sources as previously unseen. The original v2 protocol follows unchanged.
 
 ---
+# Response-rule confirmation: version 2
 
-## 1. Why this document exists
+Prepared November 19, 2026, before new confirmation generation. Version 1
+remains in Git history. Steven authorized implementation and generation;
+this does not claim that every teammate has signed off.
 
-Every batch reported so far was selected after its results were known. The
-exploratory phase screened roughly a dozen task families and we wrote up the
-three with complete records because they were the easiest to describe; the
-MT-Eval extension was run *because* the first batch showed a gap. Those results
-are reported as exploration in the final report and are not treated as effect
-estimates.
+## 1. Question and primary contrast
 
-This document fixes the task, the measure, the sample size and the stopping
-rule in advance, so that exactly one batch in this project can be read as
-confirmatory.
+Does flattening an established conversation reduce compliance with its response
+rule? Primary contrast: mean paired binary compliance B minus C on ordinary
+requests. A is an online-computation reference, not a quality gold standard.
+Previous post-outcome-selected exploratory batches remain separate.
 
-## 2. Question
+## 2. Model and decoding
 
-When a conversation that established a response rule is pasted into a new
-window as plain text, does the model still follow that rule?
+Qwen2.5-7B-Instruct revision `a09a35458c702b33eeacc393d103063234e8bc28`,
+BF16, one RTX 5090, greedy argmax, no repetition penalty, seed 453.
+System: `You are a helpful assistant.` Cap: 1024 new / 8192 input tokens.
+Verify weight SHA256 before inference. Save library versions, actual input IDs,
+generated IDs, termination and code hashes.
 
-Formally, for conditions B (role replay) and C (pasted transcript) over source
-conversations $i$, the estimand is the paired difference in rule compliance
+## 3. Rules, question source and establishment
 
-$$\Delta = \mathbb{E}_i\left[\text{comply}_i^{B} - \text{comply}_i^{C}\right].$$
+Four MT-Eval rules: two responses separated by `******`, valid JSON, bullet
+list, fixed ending `Is there anything else I can help with?`.
+Every practice turn requests at most 200 words; length is secondary.
 
-Condition A (online continuation from the retained KV cache) is recorded as an
-upper reference but is not part of the primary comparison.
+Version 2 changes the question source to Databricks Dolly 15k, revision
+`bdd27f4d94b9c1f951818a7da7fd7aeea5dbff1a`. MT-Eval's 220 standalone
+instruction questions cannot supply 480 disjoint new questions for the minimum
+design, let alone reserves. Dolly reference answers are never supplied to Qwen
+or used in scoring. This is an MT-Eval rule/checker adaptation on constructed
+conversations, not an official MT-Eval aggregate score.
 
-## 3. Task
+The frozen builder selects empty-context open_qa/brainstorming/creative_writing
+questions, 8--70 words, excluding specified competing-format terms, exported
+development-text matches, exact duplicates and token-set Jaccard above .85.
+Seed 453 selects 960 questions; four consecutive questions form a bundle;
+rules are round-robin. Source row IDs, dataset revision/hash and CC BY-SA 3.0
+notice are in `data/confirmation_v2/`.
 
-**Response rules**, adapted from MT-Eval (Kwan et al., 2024).
-
-Chosen because the source questions are public, the requirement is inspectable
-without a judge, and one documented failure already exists to build around
-(the two-response rule on the vaccine question in `mteval-24`).
-
-Rules in scope — the same four as the exploratory batch, so that the two are
-comparable:
-
-| `inst_name` | Rule |
-|---|---|
-| `combination:two_responses` | two different responses separated by `******` |
-| `format:json_format` | answer is valid JSON |
-| `format:bullet_list` | answer is a bullet list |
-| `startend:end_phrase` | answer ends with a fixed phrase |
-
-Histories are generated by Qwen2.5-7B-Instruct itself, as before. A history is
-admitted only if it followed its own rule throughout generation
-(`established == true`); histories that fail this are discarded and replaced
-before any test question is asked, and the number discarded is reported.
+Qwen answers three practice turns online with a retained cache; there is no
+acknowledgment-only turn. Admit only histories whose three replies pass the
+category checker and end naturally without internal special tokens. Reject
+before either test question; preserve every attempt/rejection. Process the
+fixed candidate order until 30 histories per rule are accepted, with a fixed
+reserve of 60 candidates per rule. Never select on N/P test outcomes or add
+post-outcome candidates. Reserve exhaustion is a feasibility failure.
 
 ## 4. Conditions
 
-| Condition | History enters the model as |
+|Condition|History input|
 |---|---|
-| A — online | continuation from the KV cache retained during generation |
-| B — role replay | the same text as alternating `user` / `assistant` messages |
-| C — pasted | the same text, with written role labels, inside one `user` message |
-| C + reminder | C, plus an explicit restatement of the rule in the final turn |
+|A online|Retained history KV cache plus current request|
+|B role replay|Same text as alternating user/assistant messages|
+|C pasted|Same text with written role labels inside one user message|
+|C + reminder|C with current applicable requirement explicitly repeated|
 
-The checkpoint, system instruction (`You are a helpful assistant.`), history
-text, follow-up question and decoding settings are identical across conditions.
-Decoding is greedy, BF16, `repetition_penalty = 1.0`, `seed = 453`.
+A/B full serialized IDs must match. Their computation is chunked differently;
+BF16 can change greedy outputs. Report disagreement rather than attributing
+it to authorship. B/C differ in serialization, role boundaries and length;
+this does not isolate a hidden sense of ownership. Both requests independently
+branch from the same frozen history.
 
-## 5. Primary measure
+## 5. Scoring, interval and review
 
-**Rule compliance**, scored by the MT-Eval category checker for that rule, as
-wrapped in `scoring.py`. One binary outcome per (history, question, condition).
+Primary ordinary outcome: MT-Eval category checker passes AND natural assistant
+EOS before the cap. Also report category-only, word count, truncation and
+near-identical-two-response flags. This measures response form, not factual
+quality, helpfulness or semantic distinctness.
 
-Reported as the paired difference $\Delta$ above, with a 95% percentile
-bootstrap interval resampling **source conversations**, not rows.
+Estimate the mean of 120 paired B-minus-C binary differences. Use 2000
+source-history bootstrap resamples with seed 453 and linearly interpolated
+2.5/97.5 percentiles. Report all conditions and rule strata; strata are
+descriptive. Ordinary and changed-rule outcomes are never pooled.
 
-### 5.1 Known shallowness of the checkers
+Manual review: target 96 answers (three per rule x condition x request-type
+cell), seed 453; add every truncated/empty or degenerate-two-response row,
+so the final count can be larger. Two reviewers independently apply the
+explicit current requirement with condition labels hidden. Report exact
+agreement counts/denominators, missing reviews and both disagreement directions,
+for reviewer/reviewer and each reviewer/checker. Manual semantic judgments do
+not replace the primary surface checker. Review is a team CPU task and does
+not block generation. No human review is claimed completed.
 
-The two-response checker verifies that two non-empty strings separated by
-`******` are present and are not byte-identical. It does not verify that they
-differ meaningfully. We therefore also record a `degenerate_two_responses`
-flag (halves identical after normalization, or one a prefix of the other) and
-report how many passing answers carry it.
+New dense KL is not required in this batch. A/B and B/C exact-text agreement
+are secondary. This removes version 1's unimplemented dense-KL promise.
 
-### 5.2 Manual review
+## 6. Rule-change request: one per history
 
-A stratified subset of **_(N)_ answers** is reviewed by hand against the rule
-text, stratified by rule and condition, with every flagged row forced into the
-sample. We report checker/human agreement and, separately, the number of
-disagreements in each direction. The sample is drawn by
-`scoring.manual_review_sample` with `seed = 453` so it is reproducible.
+Use the same held-out question twice, ordinary and changed-rule. Append:
 
-> **TO FILL — Lang Zhou:** the review size _(N)_, and the rule for what counts
-> as compliant where the checker and a human could reasonably differ.
-
-### 5.3 Secondary diagnostics
-
-Reported but not used to decide anything: exact match to the condition-B
-answer, and common-prefix KL computed at **every** reference position (never a
-sparse grid). Neither is a quality criterion — on the editing batch the pasted
-condition was more often correct than role replay, so agreement with B cannot
-stand in for correctness.
-
-## 6. Rule-change subset
-
-A subset of questions explicitly asks the model to **abandon** the established
-rule (for example, "just give me one plain answer this time, no formatting").
-
-Compliance on this subset means *following the new instruction*, i.e. dropping
-the old rule. It is scored and reported separately and is never pooled with the
-main compliance rate. Without it, a model that rigidly persists would score
-well on a measure of continuity while actually behaving worse.
-
-> **TO FILL — Moyang Wang:** how many such questions per history, and their
-> exact wording.
-
-## 7. Sample size and budget
-
-| | Planned |
+|History rule|Exact changed-rule instruction|
 |---|---|
-| Source conversations (histories) | _(fill)_ |
-| Test questions per history | _(fill)_ |
-| Conditions | 4 (A, B, C, C + reminder) |
-| Total final answers | _(fill)_ |
-| Of which rule-change questions | _(fill)_ |
-| Generation cap | 1024 new tokens, 8192 input |
+|Two responses|For this reply only, give one response. Do not use the ****** separator or give a second version.|
+|JSON|For this reply only, answer in plain prose, not JSON. Do not use a code block.|
+|Bullet list|For this reply only, answer in one plain paragraph. Do not use a bulleted or numbered list.|
+|Ending|For this reply only, omit the usual ending phrase "Is there anything else I can help with?". End with the answer itself.|
 
-> **TO FILL — Moyang Wang:** the four counts above, chosen from what fits the
-> GPU budget.
+Append `Keep this reply at most 200 words.` to each. On change requests,
+C + reminder repeats the NEW instruction. Change checks respectively require
+nonempty text without separator; non-JSON text without a code fence; no
+bullet/numbered lines or blank-paragraph separators; omission of exact ending.
+Also require natural stop. These surface proxies have the review limitations
+above and are reported separately from ordinary compliance.
 
-### 7.1 What a synthetic power check showed
+## 7. Fixed sample sizes and budget
 
-Before fixing these numbers we ran the probe on synthetic activations of the
-real shape (`probe.py --selftest`, and a sweep over source counts at three
-effect sizes). Two findings bear on the budget.
+|Item|Planned|
+|---|---:|
+|Accepted histories|120 (30 per rule)|
+|Candidate maximum|240 (60 per rule)|
+|Requests per accepted history|2 (one ordinary, one change)|
+|Conditions per request|4|
+|Final answers|960|
+|Changed-rule answers|480|
+|Minimum practice replies for 120 immediately accepted histories|360|
+|Maximum attempted practice replies|720|
+|Maximum total free generations|1680|
+|Raw activation records across both request types|3840|
 
-**More histories buy precision, not accuracy.** Across 120, 300 and 600
-synthetic sources the probe's accuracy barely moved; what shrank was the
-interval (roughly ±0.13 at 120 sources down to ±0.05 at 600). The accuracy
-ceiling is set by how separable the two conditions actually are, not by how
-many conversations we generate. So the budget question is *how tight an
-interval do we need*, not *how high can accuracy go*.
+At n=120, a worst-case normal-approximation standard error for the mean of
+paired differences in [-1,1] is 1/sqrt(120), giving an approximate 95% half-width
+.179. This is conservative planning, not a guaranteed detectable effect or
+an equivalence margin. Precision depends on discordant pairs and admission.
+Synthetic tensors test software; their intervals do not establish real power.
 
-**A single 70/15/15 split wastes most of the data.** At 120 sources only about
-19 reach the test set, and the interval is set by that small number. Grouped
-k-fold holds out every source exactly once. On identical synthetic data at 120
-sources:
+## 8. Continue/stop rule
 
-| Evaluation | Accuracy | 95% interval | Width |
-|---|---|---|---|
-| single 70/15/15 split | 0.632 | [0.500, 0.763] | 0.263 |
-| grouped 5-fold CV | 0.592 | [0.550, 0.633] | **0.083** |
+Explore recovery only if the ordinary B-minus-C 95% interval has a POSITIVE
+lower endpoint. A negative interval supports the opposite direction. An
+interval containing zero is inconclusive; report its bounds, not 'no effect'.
+No post-outcome sample extension. Probe analysis proceeds under any outcome.
 
-Three times tighter for the same generation cost, because probe training takes
-seconds and the expensive part is generating histories.
+Intervention outputs require a separate registration: reminder, history-
+difference/probe directions, same-norm random, wrong-history and reverse
+controls, fixed layer 16 / alpha 1. This runner does not automatically launch
+interventions or claim that a classification direction is causal.
 
-**Decision:** the probe is evaluated with **grouped 5-fold cross-validation
-over source conversations** (`probe.py --cv 5`), not a single split. Folds are
-over sources, so the two rows of a pair always move together. Hyperparameters
-and the reported layer are selected inside each fold on a validation slice of
-that fold's training sources; the held-out fold is never used for selection.
+## 9. Raw activation export (required)
 
-This replaces the single-split description in §3.3 of the midway report, and
-the change is disclosed there.
-
-## 8. Stopping rule
-
-Fixed before generation; no extension of this batch after seeing its results.
-
-- The batch is generated **once** at the planned size. If a bug invalidates a
-  run, the whole batch is regenerated from scratch under a new run directory
-  and that fact is reported.
-- We do **not** add histories, questions or conditions because the result looks
-  promising or disappointing.
-- A follow-up batch, if any, is reported as a separate exploratory extension,
-  exactly as the MT-Eval extension was.
-
-**Decision thresholds**
-
-| Outcome | Reading |
-|---|---|
-| $\Delta$ interval excludes 0 | format effect supported at this sample size |
-| $\Delta$ interval contains 0 | no supported effect; report the interval and the width |
-
-> **TO FILL — Lang Zhou:** the smallest $\Delta$ this design can detect at the
-> planned sample size, so that "no effect" can be stated as a bound rather than
-> as an absence. The synthetic check in §7.1 gives the probe side of this; the
-> compliance side needs its own calculation, and the exploratory batch suggests
-> compliance is near ceiling under every condition, which compresses the range
-> in which a difference could appear at all.
-
-The intervention comparison (§10) runs **only if** the interval excludes 0.
-Otherwise it is dropped and the final report says so.
-
-## 9. Activation export — required for the probe
-
-The probe is a separate analysis trained on activations from this same batch.
-It needs a specific export that the current extraction code does **not**
-produce.
-
-**The current code returns only the difference** $v = h_B - h_C$. The probe
-needs each condition's activation separately; the difference cannot be split
-back apart.
-
-Required format — a `.pt` holding:
+Capture B and C separately at the last prompt token BEFORE answering. Layers
+0,4,8,12,16,20,24,28; 0 is token embedding output, k>0 is block k output before
+model-level final normalization. CPU float32, one-dimensional length d:
 
 ```python
-{"records": [
-    {"case_id": str,            # source conversation id
-     "condition": "nat" | "flat",
-     "layer": int,              # 0 = embedding output, 1..L = block outputs
-     "vector": 1-D float tensor of length d,
-     "n_tokens": int},          # prompt length, for the length baseline
-    ...
-]}
+{"records": [{"case_id": str, "condition": "nat" | "flat",
+              "layer": int, "vector": tensor_of_shape_d,
+              "n_tokens": int, ...}]}
 ```
 
-Three requirements:
+`nat` is B, not A. Include source/query IDs, request type, position and terminal
+token ID. Pack ordinary pairs into `activations.pt` (1920 records) and change
+pairs into `activations_change.pt` (1920), with `outputs.jsonl`. Thus each file
+has one nat/flat pair per history/layer. Raw shards retain both request types.
+The last prompt token is identical in B/C: layer-0 vectors MUST match. Layer 0
+checks token identity; it does not exclude surface-format cues at later layers.
 
-1. **Per condition, not the difference.** Both `nat` and `flat` rows.
-2. **Multiple layers in one pass.** Layer 0 (embedding output) plus every
-   fourth block. Layer 0 is not optional: it is the surface-form control, and
-   without it a high accuracy cannot be distinguished from the two conditions
-   simply containing different tokens.
-3. **Same read position as the intervention work** — the final token of the
-   prompt — so the probe direction and the difference vector are comparable.
+## 10. CPU probe plan and remaining implementation
 
-Missing any of these means a second GPU pass.
+Source-grouped five-fold outer CV; select hyperparameters AND layer on an
+inner validation slice, not pooled outer-test accuracy. Report the full layer
+curve separately from the nested selected-layer estimate. Seeds 0/1/2;
+lr .001/.01; L2 .0001/.001/.01/.1; Adam/BCE, 200 epochs max, patience 10.
+Standardize on training data only; token-length baseline uses the same folds.
+Average seed correctness within source; bootstrap sources, not seeds.
 
-## 10. Intervention comparison — conditional
+Empirical H0: 199 independent source-wise nat/flat label swaps, consistent
+across layers, repeating selection/evaluation. p=(1+null>=observed)/200.
+Raw directions undo standardization: w_raw = D^-1 w, zero-filling dropped
+columns. PCA is descriptive and cannot select the reported layer.
 
-Runs only if §8's threshold is met. Compares, under condition C:
+The inherited `analysis/probe.py` is retained for review. Its current CV path
+selects a layer on pooled test accuracy and its direction does not undo
+standardization. DO NOT use that summary or direction as the confirmatory
+result. CPU corrections and the empirical null remain Sishen/Lang handoff
+work, following this fixed plan; raw exports avoid a second GPU run. No probe
+result is asserted now. Disclose later implementation fixes in the report.
 
-- an explicit rule reminder in the prompt (the cheap alternative),
-- the mean-difference direction $v_{i,\ell} = h^{(\ell)}_{i,B} - h^{(\ell)}_{i,C}$,
-- the probe direction $w^{\mathrm{raw}}_\ell = D_\ell^{-1} w_\ell$,
+## 11. Execution record
 
-each against the same controls already used: a norm-matched random vector, a
-vector from a different history, and the reversed direction. Layer and $\alpha$
-stay at the values used in the exploratory phase ($\ell = 16$, $\alpha = 1$) and
-are not tuned; any tuning would be reported as exploratory.
+`confirmation/freeze.py` records protocol, candidates and source-code hashes
+before confirmation. Commit registration before inference. Two OLD development
+cases can test CUDA/export first, never counted as confirmation. Do not change
+code/config inside a run. Preserve failures; implementation fixes require a
+new registration/run directory. This protocol fills version 1's open items;
+any later scientific change is a disclosed amendment.
 
-## 11. What would make us report a negative result
-
-If compliance does not differ between B and C, we report that, with the
-interval and the detectable-effect bound from §8. The protocol, the controls
-and the probe are reportable under either outcome. No part of the plan depends
-on the effect being large.
-
-## 12. Analysis code frozen at registration
-
-| File | Purpose |
-|---|---|
-| `splits.py` | source-level splitting; source-level and paired bootstrap |
-| `scoring.py` | rule compliance, quality flags, manual-review sampling |
-| `probe.py` | layer-wise probes, controls, layer selection, grouped k-fold |
-
-These are committed with this document. `scoring.py` has been validated against
-the exploratory 02_strategy batch and reproduces its reported counts
-(B 16/16, C 15/16, A 15/16). Changes made after generation begins are recorded
-in the commit history and disclosed in the report.
-
----
-
-## Sign-off
-
-- [ ] Moyang Wang — §6 wording, §7 counts, §9 export format
-- [ ] Lang Zhou — §5.2 review size, §8 detectable-effect bound
-- [ ] Sishen Liu — document, analysis code

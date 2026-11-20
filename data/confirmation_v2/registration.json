@@ -1,0 +1,29 @@
+{
+  "status": "registered_before_generation",
+  "registered_utc": "2026-11-19T23:45:05.412402+00:00",
+  "review_note": "Generation authorized by Steven; v2 choices fixed before confirmation. Replaces preflight-only registration with Windows path separators; no confirmation inference occurred under that registration. Human review pending.",
+  "protocol_sha256": "d6660ef64899bdbff591a770f6e3e2aeefa60d47ee53d41e455773aa1dafd9b4",
+  "cases_sha256": "4f2d2d01a70f1e7265b56427492bd0f58a5bf6ae9e534fcef756d41d1b62da70",
+  "sources": 240,
+  "code_sha256": {
+    "confirmation/__init__.py": "946974008c993cbf3702357c7a7cb9cb73835e95b667bec3e17cc9ed2e3063b2",
+    "confirmation/build_cases_v2.py": "15b417a20698d4d62149092396e4a47a0916b997beaf11a59dbc09d9dbe48716",
+    "confirmation/common.py": "66e792b2499e5be63df7bdf0af02eb0fa5a7252dce7b02626f6002b1ebb24ceb",
+    "confirmation/execute_registered.py": "503a4a7f5b3c9716cc47c34c9ead2b8acc88ab85825bfe18b2d2e391f803a262",
+    "confirmation/freeze.py": "5f4f60a0124d11fa1b5e61eaaaf8950d4b3c1556a9f225e00f4915509afa8bca",
+    "confirmation/make_fake_data.py": "d9fbc11fece96b53a24d9dcbd6aa757534f45c4506b15d898ef67872f3a553fc",
+    "confirmation/pack.py": "f854f00aa0514e620f0cafed4112d5e5043c7bcc3b4584d5204b81c910acdbf8",
+    "confirmation/prepare_development_cases.py": "3e5acf93e79cdf6a3dec34e225779f8f190a17ee30f7df19ccabf5eea14d2319",
+    "confirmation/run_batch.py": "446a4014e5f93c953d27d7662476c4a7b114938939e5555f229beaccc1ab3777",
+    "confirmation/score.py": "a46b8c0317e0d255afd2b6a74c45dabfba9547207599b59bc9eeeaf38982831d",
+    "confirmation/validate.py": "cca0aaf0739587f33f8e88b50137dd13dc071b8d587fb431fcb128e8c5727491",
+    "analysis/probe.py": "675cd6a3666363d71d1886bf0da3a623e9e3a5fe6a3329759014894b99778bd7",
+    "analysis/scoring.py": "a653d58be61f56503b07018dd92aa2aad41e3bd242950de439a1c36a0e695d58",
+    "analysis/splits.py": "ea7972f82fc9d1d8bfa93c6786a3ca411c659d96fc6de7cee07de83db3a3fbd0",
+    "PREREGISTRATION.md": "0cbc9172bdaf589c5a35c251963b98d0b7738671ebdba8d9b3f3fc5fe15274b5",
+    "handoff.py": "25152d41cc26a07470b7f448ce20ecd4c619a22496837055b6948b79dbf7819b",
+    "reference_code/migration_exploration_core_v1.py": "31da0916506fa54cc3b78f0eab7f7f96803fa3358e5653d6410bd93c3dd412cd",
+    "reference_code/run_policy_threeway_v1.py": "2f94aadbc286aaf207f5efd07b1f450b5e519550ebffa681c14069cf12753382"
+  },
+  "novelty_check": "Question substring check against exported development histories only; provenance still requires team review."
+}
