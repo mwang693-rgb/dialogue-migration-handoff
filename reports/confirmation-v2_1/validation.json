@@ -1,0 +1,19 @@
+{
+  "valid": true,
+  "synthetic": false,
+  "run_kind": "confirmation",
+  "cases": 120,
+  "outputs": 960,
+  "activation_records": 3840,
+  "layers": [
+    0,
+    4,
+    8,
+    12,
+    16,
+    20,
+    24,
+    28
+  ],
+  "hidden_size": 3584
+}

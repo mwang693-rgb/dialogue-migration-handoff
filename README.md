@@ -4,7 +4,7 @@ We tested whether copying a conversation into one user message changes the next 
 
 This repository collects three small experiments from October 10–14, 2026. Start with the [results](reports/results.md), or read the [examples](reports/examples.md) to see the actual replies. The [experiment notes](docs/experiment-notes.md) cover the other things we tried. A [project outline](docs/project-outline.md) is included for the team to work from.
 
-The next-batch code is under [confirmation/](confirmation/README.md). [Protocol v2](PREREGISTRATION.md) fixes four rules, a public question source, 120 accepted histories, four input conditions and separate multi-layer nat/flat exports. Historical results below remain unchanged. New confirmation results will be delivered separately after validation; no confirmation outcome is claimed here.
+The completed confirmation batch is reported in [Response-rule confirmation](reports/confirmation-v2_1/README.md). It contains 120 accepted histories, 960 final answers and 3840 raw activation records. Ordinary-request compliance was B 112/120 and C 115/120, so the preregistered positive recovery gate did not pass and no activation-intervention batch was run. [Download the data and activation files](https://github.com/mwang693-rgb/dialogue-migration-handoff/releases/tag/confirmation-v2.1). Probe fitting and human review remain pending. Code is under [confirmation/](confirmation/README.md), with the technical rerun documented in [the protocol](PREREGISTRATION.md). The earlier exploratory results below are unchanged.
 
 |Experiment|What we measured|What we found|
 |---|---|---|
