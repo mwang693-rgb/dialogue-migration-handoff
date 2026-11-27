@@ -138,7 +138,7 @@ def main():
         accepted = {r: 0 for r in RULES}
         for h in (rows(out / 'histories.jsonl') if (out / 'histories.jsonl').exists() else []):
             accepted[h['inst_name']] += 1
-        target = a.smoke or cfg['target_per_rule']
+        target = a.smoke or v21cfg['target_per_rule']  # 30 per rule, as in v2.1 (protocol phase1_histories.admission)
         t0 = time.perf_counter()
         for c in cases:
             if c['case_id'] in done:

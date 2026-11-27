@@ -1,7 +1,7 @@
 {
   "status": "registered_before_generation",
-  "registered_utc": "2026-11-27T11:20:08.138185+00:00",
-  "review_note": "Registered before any Llama-3.1 or Gemma-2 output was generated (weights still downloading). Smoke tests: tiny random Qwen (CPU), tiny random Llama-3.1 and Gemma-2 with real tokenizers/configs (GPU); cached decoding matches full forward in float32 beyond the sliding window.",
+  "registered_utc": "2026-11-27T11:37:23.773940+00:00",
+  "review_note": "Amendment 1 (before any generation): the first registration's run.py read target_per_rule from the replication protocol, where it is only stated in prose, and stopped with KeyError at startup for both models before any history was generated (failed folders kept on the server as *.failed-keyerror-before-generation). run.py now reads target_per_rule from the v2.1 protocol (value 30, the number the protocol states). No other change; no model output has been seen.",
   "protocol_sha256": "755dfa9c7641f38619a4b8eeb3a5891e9ffaf8c66709dc19771101f5f9a48dde",
   "open_units_sha256": "a9b686e6e8a8944989d24e455b115bc13640fc67727bd71ef89a522113bde2e3",
   "open_manifest": {
@@ -29,7 +29,7 @@
   },
   "code_sha256": {
     "replication/engine.py": "e2c12cf3ba6cfd3daf64dcb0fdae44dc1b6e02f09b19e044f4b90461a361d5aa",
-    "replication/run.py": "a867bf2dbe300253f230f46c4627680d12ef781361fec25a9aed45c0d0670f18",
+    "replication/run.py": "eedef910616a4530993640253f67e281245abaaa3544eac012260fef198c9586",
     "replication/summarize.py": "e8ec6d4dda84a8de317c2f9320be8476ca133e53353bcf637c4ab0ad80e3649d",
     "replication/build_open.py": "401bea49b28283c302e04d0fc5cb4cef879b35bf724472bdfaaa7472f3b5fe2d",
     "replication/freeze.py": "62210869ee9f64576aa3afc2dac899e2aa9f5b83ad613806b3534232323663c6",
