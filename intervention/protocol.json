@@ -1,0 +1,100 @@
+{
+  "status": "reviewed",
+  "version": "format-direction-intervention-v1",
+  "question": "Is the shared B-minus-C format direction at block 16 causally used by Qwen2.5-7B-Instruct when it writes the answer, or is it inert?",
+  "source_run": "confirmation-v2_1",
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "pinned_sha256": {
+    "model-00001-of-00004.safetensors": "a1333e6293854747c481288ea83b348226af178dd565c49b6f9495ba1966aba7",
+    "model-00002-of-00004.safetensors": "f5d25a2772cb825164a2a2c0fb6d51a87e282abf21e4dd75bc5cfb3cd0ea6185",
+    "model-00003-of-00004.safetensors": "8efdec4c1bc12317ae1a38dc42b595ce777738a64deea3fcb8a0a91381bcdfd5",
+    "model-00004-of-00004.safetensors": "1a72d403cdf0c1ec3cb7f289f17b394a01e64394c2e9b3c0f94dbce3faf879bd",
+    "config.json": "7463bb0ea78315365e6c6b74de4e73bbcc8359dfb0c5a737584e077d42c0b03c",
+    "generation_config.json": "3a8f9087e486054c8a4a08dae2e5a3ba62e23da212b5b8c08bc42cb983c3459f",
+    "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+    "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+  },
+  "dtype": "bfloat16",
+  "decoding": "greedy, batch 1, same feed/decode call pattern as confirmation/run_batch.py",
+  "seed": 453,
+  "sources": 120,
+  "request_types": ["ordinary", "change"],
+  "cap": 1024,
+  "word_limit": 200,
+  "site": {
+    "layer": 16,
+    "module": "model.model.layers[15] output (block 16, before final norm); identical to v2.1 activation layer 16",
+    "positions": "last prompt token at prefill and every generated token; in teacher-forced passes the last prompt token and every reference-answer input token",
+    "operation": "h <- h + vector (absolute vector, alpha 1)"
+  },
+  "directions": {
+    "built_by": "intervention/directions.py, CPU only, before any new inference",
+    "inputs": ["activations.pt (ordinary nat/flat)", "activations_change.pt (change nat/flat)"],
+    "mean": "cross-fitted: 5 folds over sources ordered by sha256(source_id + 'intervention-v1'); for a source in fold k use the mean ordinary (nat - flat) at layer 16 over the other four folds; the same vector serves both request types",
+    "own": "the source's own (nat - flat) at layer 16 for that request type",
+    "wrong": "own vector of the next source (cyclic, sorted source_id) with the same rule, same request type",
+    "random": "Gaussian direction, numpy seed 453 + source index, scaled to the norm of that source's mean vector"
+  },
+  "conditions": {
+    "B": "role replay, no hook",
+    "C": "pasted, no hook",
+    "C_plus_mean": "C + mean",
+    "C_plus_random": "C + random",
+    "C_minus_mean": "C - mean",
+    "C_plus_own": "C + own",
+    "C_plus_wrong": "C + wrong",
+    "B_minus_mean": "B - mean"
+  },
+  "teacher_forced_kl": {
+    "along_B_reference": ["B", "C", "C_plus_mean", "C_plus_random", "C_minus_mean", "C_plus_own", "C_plus_wrong"],
+    "along_C_reference": ["C", "B", "B_minus_mean"],
+    "reference": "greedy generated_ids of B (or C) from this run, including the stop token",
+    "measure": "per position KL(p_ref_condition || p_condition) in float32 over the full vocabulary, averaged over reference positions; first-position KL and top-1 agreement also stored",
+    "note": "p_ref_condition is itself recomputed teacher-forced, so the reference row is a numerical-floor check and should be ~0"
+  },
+  "primary": {
+    "request_type": "ordinary",
+    "per_source": "KL_B(C), KL_B(C_plus_mean), KL_B(C_plus_random), where KL_B(X) is mean KL along the B reference",
+    "gap_closed": "G = 1 - mean_s KL_B(C_plus_mean) / mean_s KL_B(C)",
+    "specificity": "Delta = mean_s [KL_B(C_plus_random) - KL_B(C_plus_mean)]",
+    "uncertainty": "source bootstrap, 2000 resamples, seed 453, percentile 95% intervals",
+    "decision": {
+      "direction_specific_effect": "G lower bound > 0 and Delta lower bound > 0",
+      "effectively_inert": "G interval inside [-0.10, 0.10]",
+      "otherwise": "inconclusive"
+    }
+  },
+  "secondary": [
+    "same primary analysis for change requests, reported separately",
+    "G for C_minus_mean, C_plus_own, C_plus_wrong; G_B = 1 - KL_C(B_minus_mean) / KL_C(B)",
+    "exact generated-token agreement with B (C-family) or with C (B_minus_mean)",
+    "rule compliance with confirmation.common.check_rule, descriptive only",
+    "termination and length integrity: cap hits, unexpected role stops, mean words",
+    "reproduction of v2.1 B and C token streams on this GPU, descriptive",
+    "cross-format probe transfer (forward only, below)"
+  ],
+  "cross_format": {
+    "request_type": "ordinary",
+    "serializations": {
+      "C_qa": "same as C but role labels 'Q' and 'A'",
+      "C_json": "history as a JSON list of {role, content} objects, then 'Current user request:' and the query"
+    },
+    "capture": "last prompt token, layers 4,8,12,16,20,24,28, conditions B, C, C_qa, C_json, no hook",
+    "analysis": "cosine of mean(B - variant) with the full-sample v2.1 ordinary mean direction per layer; paired sign of (B - variant) on that direction"
+  },
+  "preflight": [
+    "all 240 B and 240 C prompt token IDs equal the v2.1 outputs.jsonl input_ids",
+    "model file SHA256 equal pinned_sha256",
+    "zero-vector hook leaves prefill logits bitwise identical for one B and one C prompt",
+    "direction file SHA256 equals the registration"
+  ],
+  "budget": {
+    "free_generations": 1920,
+    "teacher_forced_passes": 2400,
+    "cross_format_forwards": 480,
+    "no_additional_generations": true
+  },
+  "not_claimed": "No claim about authorship, persona, general migration harm, other models or other tasks. Compliance changes are descriptive. A null result means this single-layer additive direction is not used at these positions, not that the format difference is behaviorally irrelevant in general."
+}

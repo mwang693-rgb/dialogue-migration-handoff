@@ -1,0 +1,26 @@
+{
+  "directions_sha256": "26da92494e3561e316594b51578c294e012c24b8f5dc4eae0bb9001891f1220f",
+  "layer": 16,
+  "sources": 120,
+  "inputs_sha256": {
+    "activations.pt": "c6ec89f3875b434cd406533bd860295b3a10011b30f697f096dfd5a7d498ad92",
+    "activations_change.pt": "13213df4f86d595df80ce5065d696325b0a34f6c9ec03e200c6055e46d56f062"
+  },
+  "histories_sha256": "b734ceeae011d39890423efdb2854ab9f272c7be17ac227d42251f74fdf9244b",
+  "mean_norm": [
+    21.119001164964107,
+    21.635599147977793
+  ],
+  "cos_own_with_crossfit_mean": [
+    0.48333849616255936,
+    0.7615436530088248,
+    0.857215074354881
+  ],
+  "fold_sizes": [
+    24,
+    24,
+    24,
+    24,
+    24
+  ]
+}
