@@ -1,0 +1,22 @@
+{
+  "status": "reviewed",
+  "version": "multi-model-replication-v1-shallow",
+  "why": "Registered after the Llama-3.1 k=4 (layer 18) steering result was seen: H1 inconclusive, no length shift. At layer 18 Llama's mean (B - C) direction holds 26% of the pair-gap energy, against 59% at Qwen layer 16; the shared share is far higher at shallower depth (Llama layer 9: 70%). The earlier Qwen layer-wise decomposition (exploratory) had already suggested shallow layers carry the cleanest shared format signal. This follow-up tests the same hypotheses at depth k = 2 (round(L * 2 / 7)). It is a new, separately registered test, not a replacement of the k = 4 results, which stand as registered.",
+  "k": 2,
+  "depths": {"qwen25": 8, "llama31": 9, "gemma2": 12},
+  "cap": 1024,
+  "seed_v21": 1453,
+  "seed_open": 1853,
+  "reuse": "everything except the steered conditions comes from the finished replication run of the same model: admitted histories, baseline B and C answers (teacher-forcing references), fold assignment, regenerated open-unit histories and their B and C answers. Prompts are rebuilt and must match the registered prompt lengths.",
+  "vectors": "cross-fitted mean ordinary (B - C) at depth k = 2 over the run's own folds (v2.1-style units); full-sample mean at k = 2 for the open units; random Gaussian controls scaled to the matching mean norm (seeds above)",
+  "conditions": ["C_plus_mean", "C_minus_mean", "C_plus_random", "B_minus_mean"],
+  "teacher_forced_kl": {"along_B_reference": ["C", "C_plus_mean", "C_minus_mean", "C_plus_random"], "along_C_reference": ["B", "B_minus_mean"]},
+  "models": "llama31 and gemma2 after their replication runs; qwen25 after a replication run of Qwen2.5-7B-Instruct through the same registered pipeline (replication/run.py, family qwen25, model files pinned by intervention/protocol.json), which also gives a same-pipeline k = 4 reference for Qwen",
+  "primary": {
+    "per_model": "two hypotheses per model at depth k = 2, each with two-sided 97.5% history-cluster bootstrap intervals (4000 resamples, numpy seed 453)",
+    "H1s_length_v21": "ordinary v2.1-style units: L_sign = mean log n(C_plus_mean) - log n(C_minus_mean) and L_random = mean log n(C_plus_mean) - log n(C_plus_random); replicates if both lower bounds > 0; absent if L_sign inside [-0.05, 0.05]; otherwise inconclusive",
+    "H2s_length_open": "the same on the open units"
+  },
+  "secondary": ["change requests", "S_random, S_sign and gap closed at k = 2", "B_minus_mean vs B length", "comparison with k = 4 on the same units"],
+  "not_claimed": "Choosing k = 2 after seeing a k = 4 null is disclosed here; k = 2 results are a registered follow-up, and the k = 4 outcomes remain the primary replication results."
+}

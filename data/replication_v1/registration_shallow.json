@@ -1,0 +1,20 @@
+{
+  "status": "registered_before_generation",
+  "registered_utc": "2026-11-27T13:17:55.971753+00:00",
+  "review_note": "Follow-up registered after the Llama-3.1 layer-18 H1 result (inconclusive) and the pair-gap energy check (26% on the mean direction at layer 18 vs 70% at layer 9). Tests k=2 depth for Llama-3.1, Gemma-2 and Qwen2.5 (Qwen via a same-pipeline replication run). Smoke-tested on a tiny random Qwen only.",
+  "protocol_sha256": "463d241bec190a0985744cf1316acee3ccddf73b09f28a4f8ba2c537fd40f024",
+  "open_units_sha256": "a9b686e6e8a8944989d24e455b115bc13640fc67727bd71ef89a522113bde2e3",
+  "code_sha256": {
+    "replication/shallow.py": "ac763cdca346ba32f73854b8b62fa91b1f68911d4ec329fd17047cc0f0081ee1",
+    "replication/freeze_shallow.py": "167dc56b731c88ea9b2326c55e88364611962497764a5f7973b1c1ef99e45a2f",
+    "replication/engine.py": "e2c12cf3ba6cfd3daf64dcb0fdae44dc1b6e02f09b19e044f4b90461a361d5aa",
+    "replication/run.py": "eedef910616a4530993640253f67e281245abaaa3544eac012260fef198c9586",
+    "replication/summarize.py": "e8ec6d4dda84a8de317c2f9320be8476ca133e53353bcf637c4ab0ad80e3649d",
+    "intervention/steer.py": "94db9754f70030048b1aa789bc8ffb069924d98b2adb9545d00f42de7b20a7e9",
+    "transfer/summarize.py": "208e3405b4c5054987bcbfdf8ab14d9cc1abd545e1a8155f8e92ba231ebfcfb0",
+    "confirmation/common.py": "66e792b2499e5be63df7bdf0af02eb0fa5a7252dce7b02626f6002b1ebb24ceb",
+    "handoff.py": "25152d41cc26a07470b7f448ce20ecd4c619a22496837055b6948b79dbf7819b",
+    "third_party/mt_eval/global_inst.py": "d41c17b1ec06d110834a07c89d7471454f2aabc4fee0a30c009f0bb12ae01b49"
+  },
+  "outputs_seen": "Llama-3.1 k=4 v2.1-style steering units (H1 inconclusive) and Llama baseline/probe results; no k=2 steered output for any model"
+}
