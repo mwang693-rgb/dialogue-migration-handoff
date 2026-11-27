@@ -14,3 +14,19 @@ jobs:
       - run: python -m unittest discover -s tests -v
       - run: python scripts/verify_release.py
       - run: git diff --exit-code -- reports
+  activation-interface:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install torch --index-url https://download.pytorch.org/whl/cpu
+      - run: python -m unittest discover -s tests -v
+      - run: python confirmation/make_fake_data.py --out runs/interface-smoke --sources 16 --hidden-size 3584
+      - run: python confirmation/score.py --validate-old
+      - uses: actions/upload-artifact@v4
+        with:
+          name: synthetic-activation-interface-only
+          path: runs/interface-smoke
+          if-no-files-found: error

@@ -1,0 +1,19 @@
+{
+  "open_units_sha256": "a9b686e6e8a8944989d24e455b115bc13640fc67727bd71ef89a522113bde2e3",
+  "n_units": 81,
+  "n_histories": 64,
+  "by_pool": {
+    "dataset_expansion_v1": 24,
+    "dataset_study_v1": 18,
+    "existing_continuity_v3": 11,
+    "open_text_fidelity_v1": 6,
+    "style_migration_v1": 22
+  },
+  "turns": {
+    "2": 49,
+    "3": 28,
+    "4": 3,
+    "1": 1
+  },
+  "verified_against_transfer_v1_qwen_ids": true
+}

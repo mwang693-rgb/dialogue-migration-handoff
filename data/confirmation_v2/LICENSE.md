@@ -1,0 +1,1 @@
+Selected user questions are adapted from Databricks databricks-dolly-15k, licensed CC BY-SA 3.0: https://creativecommons.org/licenses/by-sa/3.0/ . Dataset: https://huggingface.co/datasets/databricks/databricks-dolly-15k . Original reference answers are not included or used.

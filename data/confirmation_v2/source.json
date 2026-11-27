@@ -1,0 +1,17 @@
+{
+  "dataset": "databricks/databricks-dolly-15k",
+  "revision": "bdd27f4d94b9c1f951818a7da7fd7aeea5dbff1a",
+  "url": "https://huggingface.co/datasets/databricks/databricks-dolly-15k/resolve/bdd27f4d94b9c1f951818a7da7fd7aeea5dbff1a/databricks-dolly-15k.jsonl",
+  "sha256": "2df9083338b4abd6bceb5635764dab5d833b393b55759dffb0959b6fcbf794ec",
+  "license": "CC-BY-SA-3.0",
+  "attribution": "Databricks, databricks-dolly-15k dataset",
+  "eligible_after_exact_filter": 3301,
+  "candidate_histories": 240,
+  "distinct_prompts": 960,
+  "target_accepted": 120,
+  "target_per_rule": 30,
+  "candidate_per_rule": 60,
+  "selection_seed": 453,
+  "selection": "Empty-context public questions only, 8..70 words, no listed competing format terms; exact dev-text and pairwise token-Jaccard >.85 exclusions. First 960 from seeded order. Four consecutive questions per bundle; round-robin rule assignment.",
+  "scope": "MT-Eval rule/checker adaptation, not an official MT-Eval benchmark score. Bundles are constructed conversations, not original Dolly dialogues. No model outputs used in selection."
+}

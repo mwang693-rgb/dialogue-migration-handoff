@@ -1,0 +1,107 @@
+{
+  "status": "registered_before_generation",
+  "registered_utc": "2026-11-27T07:47:55.201807+00:00",
+  "review_note": "Frozen after intervention v1 results; units built from saved exploratory runs (no new outputs seen); CPU smoke test on a tiny random model only.",
+  "protocol_sha256": "5ccf21950854db42431187113102133c19270f27512eb1fbb484a73bc5da3a21",
+  "units_sha256": "1c48e32d2acc5b68a97512b04bb7085a5852999c124e5fe8cc81c0dc33f0a620",
+  "vectors_sha256": "4d57b1b791bca112708d0a1ddef2e978415cebd535ad628d7e0296a6e67f2b1d",
+  "manifest": {
+    "units_sha256": "1c48e32d2acc5b68a97512b04bb7085a5852999c124e5fe8cc81c0dc33f0a620",
+    "vectors_sha256": "4d57b1b791bca112708d0a1ddef2e978415cebd535ad628d7e0296a6e67f2b1d",
+    "source_directions_sha256": "26da92494e3561e316594b51578c294e012c24b8f5dc4eae0bb9001891f1220f",
+    "mean_norm": 21.363529205322266,
+    "n_units": 375,
+    "n_histories": {
+      "short": 138,
+      "open": 67,
+      "structured": 20,
+      "near": 8,
+      "external": 18
+    },
+    "units_by_group": {
+      "short": 230,
+      "open": 81,
+      "structured": 20,
+      "near": 26,
+      "external": 18
+    },
+    "units_by_pool": {
+      "short/active_task_dev_v2": 16,
+      "short/approved_plan_dev_v1": 16,
+      "short/dataset_study_v1": 18,
+      "short/executable_result_dev_v1": 8,
+      "short/frozen_operation_v1": 4,
+      "short/migration_exploration_baseline_v1": 40,
+      "short/mti_dynamic_discovery_v1": 12,
+      "short/plan_practice_v1": 12,
+      "short/policy_practice_v2": 12,
+      "short/policy_threeway_v1": 12,
+      "short/qa_rewrite_discovery_v1": 32,
+      "short/retention_discovery_v1": 24,
+      "short/structured_qa_discovery_v1": 24,
+      "open/dataset_expansion_v1": 24,
+      "open/dataset_study_v1": 18,
+      "open/existing_continuity_v3": 11,
+      "open/open_text_fidelity_v1": 6,
+      "open/style_migration_v1": 22,
+      "structured/artifact_protocol_v2": 12,
+      "structured/frozen_update_stress_v1": 8,
+      "near/mteval_continuity_v1": 16,
+      "near/mteval_tworesponse_extension_v2": 10,
+      "external/dataset_study_v1": 6,
+      "external/mti_diagnostic_v1": 12
+    },
+    "id_source": {
+      "rebuilt_run_pilot_serializer": 108,
+      "saved_input_ids": 267
+    },
+    "prompt_tokens": {
+      "B": {
+        "min": 130,
+        "max": 7370
+      },
+      "C": {
+        "min": 122,
+        "max": 7315
+      }
+    },
+    "excluded": {
+      "artifact_expansion_v1:duplicate_prompt_pair": 8
+    },
+    "v21_history_overlap": 0,
+    "source_sha256": {
+      "qa_rewrite_discovery_v1/outputs.jsonl": "d8ccd3ba50392bdd04533e73ac3ab81afe22a087cd1b17134807fef9b53c8611",
+      "structured_qa_discovery_v1/outputs.jsonl": "a1db8fdc814cc76c70b2040db3cff5ce99afd43e998c0a6a4dd4870c5c2b93f4",
+      "retention_discovery_v1/outputs.jsonl": "ea7ec2465b96c7b1b1b050855eef0ef517b3380dd82c2b13e74759c3e0cb6362",
+      "mti_dynamic_discovery_v1/outputs.jsonl": "549f16d4b49bfbfa606e83bddc28d26c086087e73b684e95970fe71d3f0c3196",
+      "migration_exploration_baseline_v1/outputs.jsonl": "a3bacaa5ff6a1b4bad90afe87fa8492ebfd6cc171a5ace950702048955e7eaeb",
+      "approved_plan_dev_v1/outputs.jsonl": "439102af3f776f00aa0ffbfa6f4007bac1145574f8fb1752ce875ee9e08b5120",
+      "executable_result_dev_v1/outputs.jsonl": "d9898bb158181d3b8692a33aa862528d0ac9fd5407c233b4e922f2ed6fcbe854",
+      "frozen_operation_v1/outputs.jsonl": "c04bdc2f51f151df9ea964bf9b207d03b51187168ee41efc26b1c56e40966645",
+      "plan_practice_v1/outputs.jsonl": "1823a844d165675e5773fb60aac59bb07b1e937c8ceaadcaf7eb5fc84abbdf97",
+      "policy_practice_v2/outputs.jsonl": "cc1c88a207943160aaf2712abafb3741a9ef42ba3fc86fa0e3600d1c2020928c",
+      "policy_threeway_v1/outputs.jsonl": "2ab0dc9ccbfaeec3efebaeb1db3fc2a8154939dc6a066b23a75021054fb3da10",
+      "style_migration_v1/outputs.jsonl": "c0a619bdbfee633d218855f5c6193e564e6bea42de069c08652ff4a3d2ea655d",
+      "existing_continuity_v3/outputs.jsonl": "35014214967577c92b88993fb185331a83808921cecb54bfaa1e3fcfe0b56a71",
+      "mteval_continuity_v1/outputs.jsonl": "83aba1e911dbf96870e737ace0c803d25b7cae250ec6a5f9b29d0d9f1bcc7fd2",
+      "mteval_tworesponse_extension_v2/outputs.jsonl": "b9ea20cf9a52845fec23424524515c3f64a364896b83d69364540abff9da1747",
+      "mti_diagnostic_v1/outputs.jsonl": "cb27d5ba9e91fb1b955d9a49f033fc5f4fab27c075dd309a9250d3dd775f35dc",
+      "dataset_study_v1/outputs.jsonl": "5cbff05ab36485a48dccb6386b1c59c90d9b25045a5b1ebd67399d0161ecf8b0",
+      "dataset_expansion_v1/outputs.jsonl": "f5bb28416c6eb16451925964204806dbadeeb861a457a04c0e778930f8b1d1cd",
+      "open_text_fidelity_v1/outputs.jsonl": "60314d7cc71e5e4648f162f9dc7a22afa18cede37e86af8c33b9a334a3535a9b",
+      "active_task_dev_v2/outputs.jsonl": "8d357aae39793866d08360e780d355c7569261c76c091c0c7c33369252f3d46e",
+      "frozen_update_stress_v1/outputs.jsonl": "9b1fa041bfb9ea3fb363f8df6274c16e70610f9dbec63731597af6cf8622f42d",
+      "artifact_protocol_v2/outputs.jsonl": "2a31e36af3f35e3428d2a45d893ffd5981fc9d97fdb6d915b272a3393a0655fe",
+      "artifact_expansion_v1/outputs.jsonl": "fc4d9a8f615f28292863dbbbc5e16fec29b43565176bb45d095efc8c49a39060"
+    }
+  },
+  "code_sha256": {
+    "transfer/build_units.py": "fc7647a59e0dfd98e24582d2e2a50e78dbd054e58d0e04317fc4bb79e043a122",
+    "transfer/run.py": "18c196886296b763c7ad3f79cfba235bf3804bf4ee4838e54d6766794056fa37",
+    "transfer/summarize.py": "208e3405b4c5054987bcbfdf8ab14d9cc1abd545e1a8155f8e92ba231ebfcfb0",
+    "transfer/freeze.py": "44431af427165376ac5a85f5e65aa2df797bbbed6736894d1adf82cd1dbc4ccc",
+    "intervention/steer.py": "94db9754f70030048b1aa789bc8ffb069924d98b2adb9545d00f42de7b20a7e9",
+    "confirmation/common.py": "66e792b2499e5be63df7bdf0af02eb0fa5a7252dce7b02626f6002b1ebb24ceb"
+  },
+  "outputs_seen": 0
+}

@@ -1,0 +1,118 @@
+{
+  "status": "reviewed",
+  "version": "format-direction-transfer-v1",
+  "question": "Do the two effects of the frozen v2.1 format direction seen in intervention v1 carry over to histories and tasks that played no part in building it? The two effects are (a) answer length moves with the sign of the push, and (b) teacher-forced KL toward the native answer is smaller under +mean than under a same-norm random vector or -mean.",
+  "builds_on": "format-direction-intervention-v1 (registered 2026-11-27, run on RTX 4090). Its registered primary G was -0.63, labelled inconclusive. The length pattern there was a post hoc observation; this run tests it out of sample.",
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "pinned_sha256": {
+    "model-00001-of-00004.safetensors": "a1333e6293854747c481288ea83b348226af178dd565c49b6f9495ba1966aba7",
+    "model-00002-of-00004.safetensors": "f5d25a2772cb825164a2a2c0fb6d51a87e282abf21e4dd75bc5cfb3cd0ea6185",
+    "model-00003-of-00004.safetensors": "8efdec4c1bc12317ae1a38dc42b595ce777738a64deea3fcb8a0a91381bcdfd5",
+    "model-00004-of-00004.safetensors": "1a72d403cdf0c1ec3cb7f289f17b394a01e64394c2e9b3c0f94dbce3faf879bd",
+    "config.json": "7463bb0ea78315365e6c6b74de4e73bbcc8359dfb0c5a737584e077d42c0b03c",
+    "generation_config.json": "3a8f9087e486054c8a4a08dae2e5a3ba62e23da212b5b8c08bc42cb983c3459f",
+    "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+    "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+  },
+  "dtype": "bfloat16",
+  "decoding": "greedy, batch 1, full prefill then one token per call (intervention/steer.py, unchanged)",
+  "seed": 453,
+  "cap": 1024,
+  "units": {
+    "built_by": "transfer/build_units.py, CPU only, before any new inference",
+    "source": "saved histories and final requests from dialogue-migration-recovery/results (exploratory runs from 2026-10)",
+    "B": "native role turns (system 'You are a helpful assistant.' + history + final user turn)",
+    "C": "the same history pasted into one user message with that run's own serializer ('User:'/'Assistant:' labels; separator '--- Current user request ---' or 'Latest user message:')",
+    "prompt_ids": "the old run's saved input IDs where stored; otherwise rebuilt with scripts/run_pilot.py:messages and required to match the saved input token count",
+    "exclusions": "duplicate prompt pairs; any history whose native prefix equals a v2.1 history (none found); system prompt or assistant header mismatch (none found)",
+    "groups": {
+      "short": "constrained answers: a short answer, a letter list, a number, one JSON action or step, an ACT list",
+      "open": "free-form text: style-migration questions, existing-continuity finance chat, Multi-IF style writing, sharded math word problems, WildChat continuations (Qwen-regenerated)",
+      "structured": "the full edited artifact must be returned (JSON table, JSON book); first request per history only",
+      "near": "MT-Eval rule-continuity histories; same instruction family as v2.1, so near-domain rather than out-of-domain",
+      "external": "assistant turns written by another source (MultiTurnInstruct gold replies, WildChat GPT-3.5/4 replies)"
+    },
+    "transfer_set": "short + open + structured (Qwen-written histories outside the v2.1 instruction family)",
+    "cluster": "history_key = SHA256 of the native prompt IDs before the final user turn; units sharing a history are resampled together"
+  },
+  "vector": {
+    "mean": "intervention v1 directions.pt full_sample_mean: mean over all 120 v2.1 ordinary (nat - flat) pairs at layer 16; frozen, never refit on these units",
+    "random": "one Gaussian direction per unit (torch CPU generator seed 853, float64, unit order of units.jsonl), scaled to the norm of mean",
+    "file": "vectors.pt written by build_units.py; SHA256 in the registration"
+  },
+  "site": {
+    "layer": 16,
+    "module": "model.model.layers[15] output, as in intervention v1",
+    "positions": "last prompt token at prefill and every generated token; in teacher-forced passes the last prompt token and every reference-answer input token",
+    "operation": "h <- h + vector (alpha 1)"
+  },
+  "conditions": {
+    "B": "native, no hook",
+    "C": "pasted, no hook",
+    "C_plus_mean": "C + mean",
+    "C_minus_mean": "C - mean",
+    "C_plus_random": "C + random",
+    "B_minus_mean": "B - mean"
+  },
+  "teacher_forced_kl": {
+    "along_B_reference": ["C", "C_plus_mean", "C_minus_mean", "C_plus_random"],
+    "along_C_reference": ["B", "B_minus_mean"],
+    "reference": "greedy generated_ids of B (or C) from this run, including the stop token",
+    "measure": "per-position KL(p_ref || p_condition), float32, full vocabulary, averaged over reference positions; first-position KL also stored"
+  },
+  "length": "n = number of generated tokens excluding the stop token (all generated tokens if the cap is hit), floored at 1",
+  "primary": {
+    "multiplicity": "two primary hypotheses; each uses two-sided 97.5% percentile intervals (Bonferroni)",
+    "uncertainty": "history-cluster bootstrap, 4000 resamples, numpy seed 453",
+    "P1_length": {
+      "population": "open group",
+      "L_sign": "mean over units of log n(C_plus_mean) - log n(C_minus_mean)",
+      "L_random": "mean over units of log n(C_plus_mean) - log n(C_plus_random)",
+      "decision": {
+        "length_effect_transfers": "lower bounds of L_sign and L_random both > 0",
+        "no_length_effect": "L_sign interval inside [-0.05, 0.05]",
+        "otherwise": "inconclusive"
+      }
+    },
+    "P2_kl_specificity": {
+      "population": "transfer_set",
+      "index": "for KL_B(X) = mean KL along the B reference: idx(X) = (KL_B(X) - KL_B(C_plus_mean)) / (KL_B(X) + KL_B(C_plus_mean)), defined as 0 when both are 0",
+      "S_random": "mean over units of idx(C_plus_random)",
+      "S_sign": "mean over units of idx(C_minus_mean)",
+      "decision": {
+        "kl_specificity_transfers": "lower bounds of S_random and S_sign both > 0",
+        "no_kl_specificity": "S_random and S_sign intervals both inside [-0.05, 0.05]",
+        "otherwise": "inconclusive"
+      }
+    }
+  },
+  "reference_values_from_v1": {
+    "note": "computed post hoc on intervention v1 units with the same formulas (one unit per source, plain bootstrap); descriptive only",
+    "ordinary": {"L_sign": 0.268, "L_random": 0.121, "S_random": 0.157, "S_sign": 0.243},
+    "change": {"L_sign": 0.148, "L_random": 0.067, "S_random": 0.116, "S_sign": 0.205}
+  },
+  "secondary": [
+    "P1 and P2 statistics per group (short, open, structured, near, external) and per pool",
+    "length of B vs C: mean log n(B) - log n(C), and B_minus_mean vs B",
+    "gap closed G = 1 - mean KL_B(C_plus_mean) / mean KL_B(C), and the same for C_minus_mean and C_plus_random",
+    "first-token versions of the KL statistics (the last-prompt-token edit alone decides the first-token distribution)",
+    "exact generated-token agreement with B and with C",
+    "termination integrity: cap hits, stops other than <|im_end|>",
+    "task correctness with each pool's original scorer is deferred to a later CPU pass and is descriptive only"
+  ],
+  "preflight": [
+    "model file SHA256 equal pinned_sha256",
+    "units.jsonl and vectors.pt SHA256 equal the registration",
+    "every unit's B and C end with the same assistant header token sequence",
+    "zero-vector hook leaves prefill logits bitwise identical for the first B and C prompt"
+  ],
+  "budget": {
+    "units": 375,
+    "free_generations": 2250,
+    "teacher_forced_passes": 3000,
+    "no_additional_generations": true
+  },
+  "not_claimed": "No claim about other models, other layers, authorship, or task accuracy. The length effect is about generated length, not quality. A null result means this frozen single-layer vector does not carry these effects to these tasks."
+}

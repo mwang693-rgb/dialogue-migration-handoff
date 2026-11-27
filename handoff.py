@@ -45,12 +45,18 @@ def portable_ast_signature(dump):
     return ast.dump(expression, include_attributes=False)
 
 
+def full_ast_dump(tree):
+    # Python 3.13 omits empty fields by default; frozen dumps include them.
+    kwargs={'show_empty':True} if 'show_empty' in inspect.signature(ast.dump).parameters else {}
+    return ast.dump(tree,include_attributes=False,**kwargs)
+
+
 def check_edit(text, family, q):
     """Match original joint/retention definitions, without executing model code."""
     try:
         if family == 'code':
             tree = ast.parse(unwrap(text))
-            strict = portable_ast_signature(ast.dump(tree, include_attributes=False)) == portable_ast_signature(q['expected_ast'])
+            strict = portable_ast_signature(full_ast_dump(tree)) == portable_ast_signature(q['expected_ast'])
             passed = strict
             if q['query_id'] == 'set_docstring':
                 expected = ast.parse(q['expected_code'])

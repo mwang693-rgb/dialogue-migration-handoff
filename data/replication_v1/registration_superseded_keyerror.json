@@ -1,0 +1,43 @@
+{
+  "status": "registered_before_generation",
+  "registered_utc": "2026-11-27T11:20:08.138185+00:00",
+  "review_note": "Registered before any Llama-3.1 or Gemma-2 output was generated (weights still downloading). Smoke tests: tiny random Qwen (CPU), tiny random Llama-3.1 and Gemma-2 with real tokenizers/configs (GPU); cached decoding matches full forward in float32 beyond the sliding window.",
+  "protocol_sha256": "755dfa9c7641f38619a4b8eeb3a5891e9ffaf8c66709dc19771101f5f9a48dde",
+  "open_units_sha256": "a9b686e6e8a8944989d24e455b115bc13640fc67727bd71ef89a522113bde2e3",
+  "open_manifest": {
+    "open_units_sha256": "a9b686e6e8a8944989d24e455b115bc13640fc67727bd71ef89a522113bde2e3",
+    "n_units": 81,
+    "n_histories": 64,
+    "by_pool": {
+      "dataset_expansion_v1": 24,
+      "dataset_study_v1": 18,
+      "existing_continuity_v3": 11,
+      "open_text_fidelity_v1": 6,
+      "style_migration_v1": 22
+    },
+    "turns": {
+      "2": 49,
+      "3": 28,
+      "4": 3,
+      "1": 1
+    },
+    "verified_against_transfer_v1_qwen_ids": true
+  },
+  "v21_sha256": {
+    "cases.jsonl": "4f2d2d01a70f1e7265b56427492bd0f58a5bf6ae9e534fcef756d41d1b62da70",
+    "protocol.json": "3ff919068ac9a794fd6420e9b82445291ee963a7c73128992367040a5ce668aa"
+  },
+  "code_sha256": {
+    "replication/engine.py": "e2c12cf3ba6cfd3daf64dcb0fdae44dc1b6e02f09b19e044f4b90461a361d5aa",
+    "replication/run.py": "a867bf2dbe300253f230f46c4627680d12ef781361fec25a9aed45c0d0670f18",
+    "replication/summarize.py": "e8ec6d4dda84a8de317c2f9320be8476ca133e53353bcf637c4ab0ad80e3649d",
+    "replication/build_open.py": "401bea49b28283c302e04d0fc5cb4cef879b35bf724472bdfaaa7472f3b5fe2d",
+    "replication/freeze.py": "62210869ee9f64576aa3afc2dac899e2aa9f5b83ad613806b3534232323663c6",
+    "intervention/steer.py": "94db9754f70030048b1aa789bc8ffb069924d98b2adb9545d00f42de7b20a7e9",
+    "transfer/summarize.py": "208e3405b4c5054987bcbfdf8ab14d9cc1abd545e1a8155f8e92ba231ebfcfb0",
+    "confirmation/common.py": "66e792b2499e5be63df7bdf0af02eb0fa5a7252dce7b02626f6002b1ebb24ceb",
+    "handoff.py": "25152d41cc26a07470b7f448ce20ecd4c619a22496837055b6948b79dbf7819b",
+    "third_party/mt_eval/global_inst.py": "d41c17b1ec06d110834a07c89d7471454f2aabc4fee0a30c009f0bb12ae01b49"
+  },
+  "outputs_seen": 0
+}

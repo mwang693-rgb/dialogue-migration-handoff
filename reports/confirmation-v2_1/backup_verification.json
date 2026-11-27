@@ -1,0 +1,37 @@
+{
+  "local_backup_verified": true,
+  "archive_sha256": "137afdc7f78fd0f5a9d0597c96027b8d939f92567ff09644833233285289099a",
+  "restored": 162,
+  "matched": 0,
+  "conflicts": 0,
+  "validation": {
+    "valid": true,
+    "synthetic": false,
+    "run_kind": "confirmation",
+    "cases": 120,
+    "outputs": 960,
+    "activation_records": 3840,
+    "layers": [
+      0,
+      4,
+      8,
+      12,
+      16,
+      20,
+      24,
+      28
+    ],
+    "hidden_size": 3584
+  },
+  "behavior_summary_recomputed": true,
+  "case_status_counts": {
+    "completed": 120,
+    "nonreplayable_history": 3,
+    "rule_not_established": 9,
+    "unused_predeclared_reserve": 108
+  },
+  "attempted_sources": 132,
+  "practice_replies": 381,
+  "truncated_outputs": 0,
+  "intervention_gate_pass": false
+}

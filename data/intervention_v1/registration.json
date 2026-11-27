@@ -1,0 +1,48 @@
+{
+  "status": "registered_before_generation",
+  "registered_utc": "2026-11-27T04:09:12.634349+00:00",
+  "review_note": "Format-direction intervention v1, authorized by the project owner on 2026-11-26 (GPU provided). Directions built from released v2.1 activations before any new inference; earlier cross-task checks were exploratory CPU analyses.",
+  "protocol_sha256": "b65d68780156691d3e8f2ef92616637aa7ae1b68ecf30044cdb14ea0bfef4c39",
+  "directions_sha256": "26da92494e3561e316594b51578c294e012c24b8f5dc4eae0bb9001891f1220f",
+  "directions_summary": {
+    "directions_sha256": "26da92494e3561e316594b51578c294e012c24b8f5dc4eae0bb9001891f1220f",
+    "layer": 16,
+    "sources": 120,
+    "inputs_sha256": {
+      "activations.pt": "c6ec89f3875b434cd406533bd860295b3a10011b30f697f096dfd5a7d498ad92",
+      "activations_change.pt": "13213df4f86d595df80ce5065d696325b0a34f6c9ec03e200c6055e46d56f062"
+    },
+    "histories_sha256": "b734ceeae011d39890423efdb2854ab9f272c7be17ac227d42251f74fdf9244b",
+    "mean_norm": [
+      21.119001164964107,
+      21.635599147977793
+    ],
+    "cos_own_with_crossfit_mean": [
+      0.48333849616255936,
+      0.7615436530088248,
+      0.857215074354881
+    ],
+    "fold_sizes": [
+      24,
+      24,
+      24,
+      24,
+      24
+    ]
+  },
+  "v21_sha256": {
+    "histories.jsonl": "b734ceeae011d39890423efdb2854ab9f272c7be17ac227d42251f74fdf9244b",
+    "outputs.jsonl": "4210202cd780738545697214fbea8c185fd5f146882775e56abf6809bd8c2553",
+    "protocol.json": "3ff919068ac9a794fd6420e9b82445291ee963a7c73128992367040a5ce668aa"
+  },
+  "code_sha256": {
+    "intervention/run.py": "2c502755acc8b380cacbc4b0bac7490c63155397d1ad329b7e1f1cdb07f64bbc",
+    "intervention/steer.py": "94db9754f70030048b1aa789bc8ffb069924d98b2adb9545d00f42de7b20a7e9",
+    "intervention/directions.py": "a84f3b4e39371a92f9f6401bfc71e2efcd00ded2bba3c7428437bd1aff93b749",
+    "intervention/summarize.py": "bab5d58c57c615ce553cba0001126c0f7d09874a95531b12b3e37c078c09e743",
+    "intervention/freeze.py": "6b4401cc92b0d92392d8c591f7c094d1f31f03e7b197b1efac19f1488bf5a7c8",
+    "confirmation/common.py": "66e792b2499e5be63df7bdf0af02eb0fa5a7252dce7b02626f6002b1ebb24ceb",
+    "handoff.py": "25152d41cc26a07470b7f448ce20ecd4c619a22496837055b6948b79dbf7819b"
+  },
+  "outputs_seen": 0
+}
