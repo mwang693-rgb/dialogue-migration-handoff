@@ -12,8 +12,8 @@ def write(path, text):
 
 def main():
     result = analyze_all()
-    out = ROOT/'reports'
-    out.mkdir(exist_ok=True)
+    out = ROOT/'reports'/'october-exploration'
+    out.mkdir(parents=True, exist_ok=True)
     write(out/'summary.json', json.dumps(result, ensure_ascii=False, indent=2))
     e, s, t = result['editing'], result['strategy'], result['style']
     lines = ['# Results', '', 'Experiments: October 10–14, 2026. Prepared November 4, 2026. Tables are recomputed from saved outputs; no new model calls were made.', '',

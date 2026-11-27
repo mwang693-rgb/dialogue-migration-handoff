@@ -1,64 +1,94 @@
-# Conversation format experiments
+# Native vs pasted conversation history: a format direction inside the model
 
-We tested whether copying a conversation into one user message changes the next reply. The confirmation task is response-rule compliance, with a separate rule-change check.
+A conversation can be carried over in two ways:
 
-This repository collects three small experiments from October 10–14, 2026. Start with the [results](reports/results.md), or read the [examples](reports/examples.md) to see the actual replies. The [experiment notes](docs/experiment-notes.md) cover the other things we tried. A [project outline](docs/project-outline.md) is included for the team to work from.
+- **B, native:** replay it as real chat turns.
+- **C, pasted:** paste its transcript ("User: … / Assistant: …") into a single user message.
 
-The completed confirmation batch is reported in [Response-rule confirmation](reports/confirmation-v2_1/README.md). It contains 120 accepted histories, 960 final answers and 3840 raw activation records. Ordinary-request compliance was B 112/120 and C 115/120, so the preregistered positive recovery gate did not pass and no activation-intervention batch was run. [Download the data and activation files](https://github.com/mwang693-rgb/dialogue-migration-handoff/releases/tag/confirmation-v2.1). Probe fitting and human review remain pending. Code is under [confirmation/](confirmation/README.md), with the technical rerun documented in [the protocol](PREREGISTRATION.md). The earlier exploratory results below are unchanged.
+This repository asks whether the model treats the two differently, and whether that difference is visible inside it. The main model is **Qwen2.5-7B-Instruct** (BF16, greedy decoding). A replication on Llama-3.1-8B-Instruct and Gemma-2-9B-it is running.
 
-|Experiment|What we measured|What we found|
-|---|---|---|
-|Editing books, code, and tables|Requested edits and preservation of unchanged content|Out of 24 requests: replay passed 15, pasted history 17, a continuation hint 19, and a history-difference vector 11.|
-|MT-Eval response rules|Whether a rule used in earlier replies continued to hold|Two-response answers scored 4/4 online and in replay, versus 3/4 when pasted. Further questions scored 9/10 in both replay and pasted conditions.|
-|Contractions in casual replies|Occurrences and density of 30 contraction forms|Pasted replies had higher density in all six old histories, but only two of four new histories. We stopped before steering on the new batch.|
+Every confirmatory step was registered (protocol, inputs and code hashed and committed) before any of its outputs existed. Exploratory results are labelled as exploratory.
 
-## The comparison
+## Findings so far (Qwen2.5-7B-Instruct)
 
-Qwen generates the history one turn at a time. We save that history and test each follow-up independently:
+1. **Behaviour barely changes.** Pasting did not reduce rule compliance: B passed 112/120 and C 115/120 ([confirmation v2.1](reports/confirmation-v2_1/README.md), registered).
+2. **The model clearly knows the difference.**
+   - B and C states at the last prompt token are linearly separable (100% from layer 4 to layer 24).
+   - The separation runs along one shared direction *d* = mean(B − C). It holds across rules and request types, and for other paste formats: Q/A labels (cos 0.96) and JSON (cos 0.86).
+   - Separability comes from an exploratory probe. The paste-format check was a secondary analysis in [intervention v1](reports/intervention-v1/README.md).
+3. **Adding d does not make pasted equal native.** At layer 16 with alpha 1 (its natural size, no tuning), the answer distribution moved further from native (gap closed G = −0.63; registered label *inconclusive*).
+4. **d controls answer length, out of sample.** Pasted answers are shorter. Adding d restores native length, subtracting d shortens answers, and a same-size random vector does neither. On 81 open-ended units from unrelated earlier experiments, L_sign = +0.355 [+0.256, +0.458] ([transfer v1](reports/transfer-v1/README.md), registered).
+5. **d is not simply a "be detailed" instruction direction** ([length control v1](reports/length-control-v1/README.md), registered).
+   - Its cosine with that direction is 0.09.
+   - With the overlap removed, d still lengthens answers.
+   - It lands much closer to native than a same-size length push: KL 0.074 against 0.235.
+   - The small overlap still carries about 45% of the lengthening.
+6. **The shared part lives in shallow layers.** It is 87% of the B − C difference at layer 4, 48% at layer 16 and 12% at layer 28 ([format subspace](reports/format-subspace/README.md), exploratory).
 
-- **A — online:** continue with the cache from actual generation.
-- **B — role replay:** feed the same text again as alternating user and assistant messages.
-- **C — pasted:** put the same text, with written role labels, inside one user message.
+## The study chain
 
-B/C is the main format comparison. A/B checks what changes when the history is recomputed. Some earlier runs only have B/C, labeled N/P in their saved files. In particular, the editing batch and the later response-rule extension have no online A results.
+| # | Study | Question | Kind | Code | Result |
+|---|---|---|---|---|---|
+| 0 | October exploration | Which tasks show a B/C difference at all? | exploratory | `reference_code/`, `experiments/` | [reports/october-exploration](reports/october-exploration/results.md) |
+| 1 | Confirmation v2.1 | Does pasting reduce rule compliance? | registered | [confirmation/](confirmation/README.md), [analysis/](analysis/README.md) | [report](reports/confirmation-v2_1/README.md) |
+| 2 | Intervention v1 | Is the format direction used when answering? | registered | [intervention/](intervention/README.md) | [report](reports/intervention-v1/README.md) |
+| 3 | Transfer v1 | Does the length effect hold on unseen tasks? | registered | [transfer/](transfer/README.md) | [report](reports/transfer-v1/README.md) |
+| 4 | Length control v1 | Is d just a verbosity knob? | registered | [length_control/](length_control/README.md) | [report](reports/length-control-v1/README.md) |
+| – | Format subspace | Which part of B − C is shared, by layer? | exploratory | [exploratory/](exploratory/README.md) | [report](reports/format-subspace/README.md) |
+| 5 | Multi-model replication | Do 1–4 hold in Llama-3.1-8B and Gemma-2-9B? | registered, running | [replication/](replication/README.md) | pending |
 
-The model was Qwen2.5-7B-Instruct, using BF16 and greedy decoding on one RTX 5090. Public datasets supplied user questions and rules; Qwen generated the assistant history.
+All registrations, with their commits, are listed in [docs/registrations](docs/registrations/README.md).
 
-## Rebuild the tables
+## Key terms
 
-Python 3.10+ is enough. No model, API key, or extra package is needed.
+| Term | Meaning |
+|---|---|
+| A / B / C | online (cache from generation) / native role replay / pasted into one user message. B vs C is the main comparison. Older files call B and C `nat`/`flat` or `N`/`P`. |
+| d, the format direction | Mean of (B state − C state) at the last prompt token, at one layer. It is cross-fitted, so a history's own pair never enters its own vector. |
+| Steering | Adding a vector to one block's output at the last prompt token and at every generated token. Alpha 1 means the vector is used at its natural size. |
+| Teacher-forced KL | Feed B's answer token by token and measure how far a condition's next-token distribution is from B's. Lower means more native-like. |
+| L_sign, L_random | Mean log length ratio of C+d against C−d, and of C+d against C+random. Positive means d lengthens answers specifically. |
+| S indices | (KL_X − KL_C+d) / (KL_X + KL_C+d). Positive means C+d is closer to native than condition X. |
+| Intervals | History-cluster bootstrap. 97.5% when a study has two primary tests, otherwise 95%. |
 
-```bash
-python scripts/build_report.py
-python -m unittest discover -s tests -v
-python scripts/verify_release.py
+## Repository map
+
+```
+README.md, AGENTS.md         start here (humans / AI agents)
+PREREGISTRATION.md           confirmation v2/v2.1 protocol (registered at this path)
+confirmation/  analysis/     study 1: build cases, run, score; probe and scoring code
+intervention/                study 2 (steer.py: hook, generation and KL helpers reused later)
+transfer/                    study 3 (summarize.py: bootstrap and statistics reused later)
+length_control/              study 4
+replication/                 study 5: model-agnostic engine, runner, shallow follow-up
+exploratory/                 unregistered analyses
+data/<study>/                frozen inputs, manifests and registration records
+reports/<study>/             results: README.md (plain language) + summary.json
+docs/                        registrations index and write-ups, activation interface, October notes
+tests/                       CPU tests (python -m unittest discover -s tests)
+scripts/                     October report builder, release check, October batch runner
+experiments/ reference_code/ handoff.py   October data, scripts and scorer (read by later code)
+provenance/                  source hashes, October selection, release manifest
+third_party/mt_eval/         MT-Eval rule checker (original license)
 ```
 
-This checks the saved answers and regenerates `reports/results.md`, `reports/examples.md`, and `reports/summary.json`. It also checks means from the saved per-token KL records. Recomputing the underlying vocabulary distributions would require the model.
+Large outputs are not in git: generations, activations and run folders live under `runs/`, which is gitignored. The v2.1 histories and activations are in the [confirmation-v2.1 release](https://github.com/mwang693-rgb/dialogue-migration-handoff/releases/tag/confirmation-v2.1).
 
-## Run a new batch
-
-The optional runner regenerates histories, then compares A/B/C. It writes to a new directory so the saved experiments stay separate.
+## Checks (CPU, no model needed)
 
 ```bash
-pip install -r requirements-gpu.txt
-python scripts/run_new_threeway.py \
-  --experiment strategy \
-  --model /path/to/local/Qwen2.5-7B-Instruct \
-  --max-cases 1 \
-  --out runs/strategy-new
+python scripts/build_report.py                 # rebuilds reports/october-exploration from saved outputs
+python -m unittest discover -s tests -v        # tests needing numpy/torch/transformers skip if absent
+python scripts/verify_release.py               # file hashes + credential scan against provenance/release_manifest.json
 ```
 
-`--experiment style` is also supported. It needs a local model and CUDA. The new wrapper has passed syntax and CLI checks, but we have not run it on a GPU for this release. Its history generation uses the original `OnlineEngine` code. New histories can differ from the saved ones and should be scored separately.
+The GPU runs need `pip install -r requirements-gpu.txt`, a local model and CUDA. Each study's README gives its exact commands. Every GPU script checks the registration hashes before it starts.
 
-## Files
+## October exploration (study 0)
 
-- `experiments/`: selected histories, answers, token IDs, scores, and original configs.
-- `reference_code/`: the original experiment scripts and their local dependencies. They still refer to the old workspace layout; use them to inspect the methods rather than running their `main()` functions directly.
-- `handoff.py`: CPU scoring and checks used by the report builder.
-- `provenance/` and `selection.json`: source hashes and the selection made for this repository.
-- `third_party/mt_eval/`: the source checker, its license, and attribution.
+Three small exploratory batches came first (October 10–14, 2026): local editing of books, code and tables; MT-Eval response rules; and contractions in casual replies. They compared A, B and C on Qwen-generated histories. They found no task where pasting caused a large, consistent loss, which led to the registered confirmation.
 
-There are 364 final answers and 60 distribution records. These are repeated measurements on a much smaller set of histories, not 424 independent samples. We chose these batches after seeing the results because they were easier to explain; the other exploratory runs are summarized in the notes.
-
-The original replies and scores are unchanged. AST comparisons accommodate the empty `type_params` field added in Python 3.12 and explicitly retain empty fields when dumping ASTs on Python 3.13. Nonempty type parameters and code strings still count. Third-party material retains its original license; see [sources](THIRD_PARTY_NOTICES.md).
+- Tables and examples: [reports/october-exploration](reports/october-exploration/results.md).
+- Notes on everything else tried: [docs/experiment-notes.md](docs/experiment-notes.md).
+- The October scripts under `reference_code/` still refer to the old workspace layout. Read them for the methods; do not run their `main()` functions.
+- Third-party material keeps its original license; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

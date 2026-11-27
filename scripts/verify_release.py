@@ -7,7 +7,7 @@ from pathlib import Path
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
-MANIFEST = ROOT/'release_manifest.json'
+MANIFEST = ROOT/'provenance'/'release_manifest.json'
 EXCLUDED = {'.git', '__pycache__', '.venv', 'runs', 'models', 'dist'}
 PATTERNS = [
     re.compile(r'(?:gh[pousr]_|github_pat_|hf_)[A-Za-z0-9_]{16,}'),

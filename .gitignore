@@ -10,3 +10,6 @@ __pycache__/
 runs/
 models/
 dist/
+
+# Local reference papers (third-party PDFs; never commit)
+ref/
