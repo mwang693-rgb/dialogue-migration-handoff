@@ -1,7 +1,11 @@
 """CPU checks of the transfer unit builder and summary statistics."""
+import importlib.util
 import sys
 import unittest
 from pathlib import Path
+
+if importlib.util.find_spec('numpy') is None:
+    raise unittest.SkipTest('numpy not installed')
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))

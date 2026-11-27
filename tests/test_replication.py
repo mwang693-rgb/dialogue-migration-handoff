@@ -7,6 +7,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+def has(*mods):
+    """True if every named module is importable (the plain CI job has no numpy, torch or transformers)."""
+    return all(importlib.util.find_spec(m) is not None for m in mods)
+
 
 def load(name):
     spec = importlib.util.spec_from_file_location(f'replication_{name}', ROOT / 'replication' / f'{name}.py')
@@ -34,9 +38,7 @@ class EngineHelperTests(unittest.TestCase):
         self.assertIn('Q:\nu1', m(h, 'q?', 'C_qa', True)[1]['content'])
 
     def test_matches_intervention_serializer(self):
-        try:
-            import torch  # noqa: F401  (intervention/run.py imports it lazily only)
-        except ImportError:
+        if not has('torch'):
             self.skipTest('torch missing')
         sys.path.insert(0, str(ROOT / 'intervention'))
         spec = importlib.util.spec_from_file_location('intervention_run', ROOT / 'intervention' / 'run.py')
@@ -47,6 +49,7 @@ class EngineHelperTests(unittest.TestCase):
         for form in ('B', 'C', 'C_qa', 'C_json'):
             self.assertEqual(m(h, 'now?', form, True), run.messages(h, 'now?', form))
 
+    @unittest.skipUnless(has('numpy'), 'numpy not installed')
     def test_decide(self):
         decide = load('summarize').decide
         x = lambda lo, hi: dict(point=(lo + hi) / 2, ci=[lo, hi])
