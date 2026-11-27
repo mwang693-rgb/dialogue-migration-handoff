@@ -1,0 +1,63 @@
+{
+  "status": "reviewed",
+  "version": "length-direction-control-v1",
+  "question": "Is the v2.1 format direction d (layer 16, native minus pasted) just a generic verbosity knob? We compare it with a 'detailed vs brief' instruction direction l in the style of Stolfo et al. (ICLR 2025), remove l's component from d, and check whether d still lengthens pasted answers and still brings them closer to native than a same-norm pure length push does.",
+  "builds_on": "transfer v1 (registered 2026-11-27). Its open-group length effect was seen in an interim look at 68/81 units before this registration. The quantities registered here (effects of d_perp, d_par and a pure length vector) have not been observed.",
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "pinned_sha256_from": "transfer/protocol.json (same files, checked again at preflight)",
+  "dtype": "bfloat16",
+  "decoding": "greedy, batch 1, intervention/steer.py unchanged",
+  "cap": 1024,
+  "inputs": {
+    "units": "transfer v1 units.jsonl (SHA256 in the registration)",
+    "test_units": "the 81 open-group units",
+    "direction_units": "the other 294 units (short, structured, near, external); used only to estimate l",
+    "format_dirs": "format_dirs.pt from length_control/build.py: d_L = mean v2.1 ordinary (nat - flat) at layers 4..28; d_16 equals the vector used by transfer v1"
+  },
+  "length_direction": {
+    "instructions": {"detailed": "\n\nPlease give a detailed, thorough answer.", "brief": "\n\nPlease keep your answer brief."},
+    "insertion": "the instruction's tokens are inserted right before the final <|im_end|> of the last user turn, in both the B and C prompt of each direction unit",
+    "estimate": "l_L = mean over direction units and both forms of h_L(detailed) - h_L(brief) at the last prompt token, layers 4..28 (block outputs, same convention as v2.1)",
+    "phase": "computed in the same run before any generation; saved with cos(d_L, l_L) per layer"
+  },
+  "vectors_at_layer_16": {
+    "d": "format direction (norm ~21.4)",
+    "d_par": "(d . l_hat) l_hat, the part of d along the length direction",
+    "d_perp": "d - d_par",
+    "len": "l_hat scaled to |d| (a pure length push with d's norm)"
+  },
+  "site": "block 16 output; last prompt token at prefill and every generated token; alpha 1 (as transfer v1)",
+  "conditions": {
+    "B": "native, no hook",
+    "C": "pasted, no hook",
+    "C_plus_d": "C + d",
+    "C_plus_dperp": "C + d_perp",
+    "C_minus_dperp": "C - d_perp",
+    "C_plus_dpar": "C + d_par",
+    "C_plus_len": "C + len"
+  },
+  "teacher_forced_kl": {"along_B_reference": ["C", "C_plus_d", "C_plus_dperp", "C_minus_dperp", "C_plus_dpar", "C_plus_len"]},
+  "length": "n = generated tokens excluding the stop token (all tokens at the cap), floored at 1",
+  "analysis": {
+    "uncertainty": "history-cluster bootstrap, 4000 resamples, numpy seed 453, two-sided 95% percentile intervals (one joint decision)",
+    "M_manipulation_check": "mean log n(C_plus_len) - log n(C); the length vector must lengthen answers (lower bound > 0), else the control is invalid",
+    "L_perp": "mean log n(C_plus_dperp) - log n(C_minus_dperp)",
+    "S_len": "mean idx(KL_B(C_plus_len), KL_B(C_plus_d)) with idx(x, y) = (x - y)/(x + y), 0 if both 0; positive means d brings C closer to B than a same-norm pure length push",
+    "decision": {
+      "invalid_length_control": "M lower bound <= 0",
+      "not_just_length": "M valid, L_perp lower bound > 0 and S_len lower bound > 0",
+      "mostly_length": "M valid, L_perp interval inside [-0.05, 0.05] and S_len upper bound <= 0.05",
+      "otherwise": "mixed"
+    }
+  },
+  "secondary": [
+    "cos(d_L, l_L) at layers 4..28",
+    "length shifts of C_plus_d, C_plus_dpar, C_plus_len and C_plus_dperp relative to C",
+    "idx(KL_B(C_minus_dperp), KL_B(C_plus_dperp)) and idx(KL_B(C_plus_len), KL_B(C_plus_dperp))",
+    "per-pool versions of the above",
+    "agreement of B, C and C_plus_d token streams with the transfer v1 run on the same GPU"
+  ],
+  "budget": {"direction_forwards": 1176, "free_generations": 567, "teacher_forced_passes": 567, "no_additional_generations": true},
+  "not_claimed": "A single instruction contrast defines l; other verbosity directions may exist. Removing one direction does not remove all length information. No claim about other layers, models, or answer quality."
+}

@@ -1,0 +1,35 @@
+{
+  "status": "registered_before_generation",
+  "registered_utc": "2026-11-27T09:21:00.031334+00:00",
+  "review_note": "Registered after an interim look at transfer v1 (298/375 units, open-group length effect seen); none of the quantities registered here (d_perp, d_par, pure length vector) have been observed. CPU smoke test on a tiny random model only.",
+  "protocol_sha256": "5f20f0efa45a37619bc1f38eba7155aa5f29cde23cfbde5cd13f5e4a8881a922",
+  "units_sha256": "1c48e32d2acc5b68a97512b04bb7085a5852999c124e5fe8cc81c0dc33f0a620",
+  "format_dirs_sha256": "3e9d59c6e60858c5aeb3dafe01dac1d1c0902ab61fc9e36ac2fdb25569583323",
+  "manifest": {
+    "format_dirs_sha256": "3e9d59c6e60858c5aeb3dafe01dac1d1c0902ab61fc9e36ac2fdb25569583323",
+    "transfer_units_sha256": "1c48e32d2acc5b68a97512b04bb7085a5852999c124e5fe8cc81c0dc33f0a620",
+    "d_norms": {
+      "4": 6.516836643218994,
+      "8": 12.852218627929688,
+      "12": 16.756784439086914,
+      "16": 21.363529205322266,
+      "20": 19.781055450439453,
+      "24": 28.88149070739746,
+      "28": 52.18683624267578
+    },
+    "d16_matches_full_sample_mean": true,
+    "test_units": 81,
+    "direction_units": 294
+  },
+  "code_sha256": {
+    "length_control/build.py": "6eb555b7d5443eee0322bf9138a6de426ef7bd44cff79ce3561084d1d3ce45f0",
+    "length_control/run.py": "42163a05dbb2904feb038642d94f6c1a2cd290db516b56b22101fbf240762d58",
+    "length_control/summarize.py": "2cebc321ad5d45b623758ae2408f0cc95f12e8850330b1e92b21069d275177d7",
+    "length_control/freeze.py": "f09fdd2a131ad9c9e4e7f444264b8ddcebaa533c7bc73c40e4a4f7bb44c0aa36",
+    "transfer/summarize.py": "208e3405b4c5054987bcbfdf8ab14d9cc1abd545e1a8155f8e92ba231ebfcfb0",
+    "transfer/protocol.json": "5ccf21950854db42431187113102133c19270f27512eb1fbb484a73bc5da3a21",
+    "intervention/steer.py": "94db9754f70030048b1aa789bc8ffb069924d98b2adb9545d00f42de7b20a7e9",
+    "confirmation/common.py": "66e792b2499e5be63df7bdf0af02eb0fa5a7252dce7b02626f6002b1ebb24ceb"
+  },
+  "outputs_seen": 0
+}
